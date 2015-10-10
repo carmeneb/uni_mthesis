@@ -1,0 +1,4 @@
+ assignment_length:
+      { $divide:
+        [ { $subtract:
+            [ "$details.assignments.fp.job.as_to_full", "$details.assignments.fp.job.as_from_full" ] }, { $multiply: [ 1000, 60, 60, 24 ] } ] }

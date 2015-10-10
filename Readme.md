@@ -84,6 +84,18 @@ Best practice for working with code.
             db.profiles.save(result);}
         );```
 
+        function replaceByValue( field, oldvalue, newvalue ) {
+            for( var k = 0; k < json.length; ++k ) {
+                if( oldvalue == json[k][field] ) {
+                    json[k][field] = newvalue ;
+                }
+            }
+            return json;
+        }
+
+
+
+
 
 ##Useful Links
 
