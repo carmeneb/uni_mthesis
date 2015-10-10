@@ -35,8 +35,9 @@ Best practice for working with code.
  ``` Cmd + shift + p -> markdown preview ``` - opens up the command window -> search for markdown preview.
 
 
-### R
-
+### R Studio
+```> mongo <- mongo.create(host = '10.27.0.2', db = 'upwork')
+```
 
 ###Terminal
 ```atom .``` opens atom window in directory folder

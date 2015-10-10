@@ -1,37 +1,115 @@
-// Tom code to change type
+// Change string not in an array to double and save
 
-```db.profiles.find({'details.dev_total_hours': {$type: 2}}).limit(3).forEach(
-    function (x) {
-        x.details.dev_total_hours=parseFloat(x.details.dev_total_hours);
-        db.profiles.save(x);}
-    );```
+db.profiles_phl_test.find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {
+		result.details.dev_total_hours=parseFloat(result.details.dev_total_hours);
+            db.profiles_phl_test.save(result);}
+        )
 
-```db.profiles.find({'details.dev_total_hours': {$type: 2}}).forEach(
-        function (result) {
-            result.details.dev_total_hours=parseFloat(result.details.dev_total_hours);
-            db.profiles.save(result);}
-        );```
+// Change string not in an array to double with print type, print results and save
 
-// Sample code to change type
-
-        function replaceByValue( field, oldvalue, newvalue ) {
-            for( var k = 0; k < json.length; ++k ) {
-                if( oldvalue == json[k][field] ) {
-                    json[k][field] = newvalue ;
-                }
-            }
-            return json;
-        }
-
-// Change type
+db..find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {
+    result.details.dev_total_hours=parseFloat(result.details.dev_total_hours);
+          print(typeof(result.details.dev_total_hours));
+            print(result.details.dev_total_hours);
+              db..save(result);}
+                )
 
 
-db.profiles_phl.$cond
+// Change string in an array to double with prnt type, print results and save
+/// Sudo Code
+find(results we want).foreachresult loop {
+  // identify if result is an array of jobs or not
+  if result is array of jobs then loop through array {
+    for each job in array {
+      Do conversion from string to double
+    }
+  } else if result is not array then {
+    Do conversion from string to double
+  }
+}
+
+db.profiles_phl_test.find({"details.assignments.hr.job": {$exists:true}}).forEach(function(result) {
+  print(result.details.dev_first_name);
+  if ( Array.isArray(result.details.assignments.hr.job) ) {
+    print("Jobs: " + result.details.assignments.hr.job.length);
+    for(var i=0; i < result.details.assignments.hr.job.length; i++) {
+      result.details.assignments.hr.job[i].as_total_hours=parseFloat(result.details.assignments.hr.job[i].as_total_hours);
+      print("Job Number: " + i);
+      print("Type: " + typeof(result.details.assignments.hr.job[i].as_total_hours));
+      print("Hours: " + result.details.assignments.hr.job[i].as_total_hours);
+    }
+} else {
+      result.details.assignments.hr.job.as_total_hours=parseFloat(result.details.assignments.hr.job.as_total_hours);
+      print("Single Job");
+      print("Type: " + typeof(result.details.assignments.hr.job.as_total_hours));
+      print("Hours: " + result.details.assignments.hr.job.as_total_hours);
+}
+db.profiles_phl_test.save(result);
+}
+)
 
 
-cond({ $cond: { if: "$details.skills.skill", then: true, else: false } })
+
+// Error in attempting to change from Double to String
+db.profiles_phl_test.find({"details.dev_total_hours": {$type: 1}}).forEach(function(result) {
+		result.details.dev_total_hours="result.details.dev_total_hours";
+            db.profiles_phl_test.save(result);}
+        )
+
+// Error pring results
+db.profiles_phl_test.find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {
+  print(result.details.dev_total_hours);}
+        )
 
 
-db.temp.find({name: {$exists:true}}).forEach( function(x) {
-    db.temp.update({_id: x._id}, {$set: {name: x.name.toString()}});
-});
+// Change string to date example
+
+db.collection.find().forEach(function(element){
+      element.OrderDate = ISODate(element.OrderDate);
+          db.collection.save(element);}
+        )
+
+// Change string to date Test - did not work
+
+db.profiles_phl_test.find({"details.assignments.fp.job.as_from_full": {$type: 2}}).forEach(function(result) {
+  result.details.dev_total_hours=ISODate(result.details.assignments.fp.job.as_from_full);
+    print(typeof(result.details.dev_total_hours));
+    print(result.details.dev_total_hours);}
+        )
+
+        assignment_length:
+             { $divide:
+               [ { $subtract:
+                   [ "$details.assignments.fp.job.as_to_full", "$details.assignments.fp.job.as_from_full" ] }, { $multiply: [ 1000, 60, 60, 24 ] } ] }
+
+
+
+// Date fields to be changed
+"details.assignments.hr.job.as_from_full" 02/19/2015
+"details.assignments.hr.job.as_to_full" Present or 10/07/2013
+"details.assignments.fp.job.as_from_full" 10/13/2012
+"details.assignments.fp.job.as_to_full"  Present or 11/16/2012
+
+"details.education.institution.ed_from" 04/2006
+"details.education.institution.ed_to" Present or 04/2008
+"details.experiences.experience.exp_from" 05/2005
+"details.experiences.experience.exp_to" Present or 04/2007
+"details.tsexams.tsexam.ts_when" 05/30/2012
+"dev_last_worked_ts" 1443484800000
+
+// String fields to be changed to double field
+"details.dev_bill_rate" 25
+"details.dev_billed_assignments" 8
+
+"details.dev_total_hours" 0
+
+"details.assignments.hr.job.as_total_hours_precise" 0
+"details.assignments.hr.job.as_total_hours" 0
+
+"details.assignments.fp.job.as_total_hours_precise" 0
+"details.assignments.fp.job.as_total_hours" 0
+
+"details.assignments.fp.job.feedback.score" 5.00
+"details.assignments.hp.job.feedback.score" 5.00
+
+"details.dev_adj_score" 5
