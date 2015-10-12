@@ -61,6 +61,11 @@ db.profiles_phl_test.save(result);
 )
 
 
+
+
+
+
+
 // Convert date range differential into days
 assignment_length:
      { $divide:
@@ -69,20 +74,25 @@ assignment_length:
 
 
 
-// Date fields to be changed
+// Date fields converted from string to date
 "details.assignments.hr.job.as_from_full" 02/19/2015
 "details.assignments.hr.job.as_to_full" Present or 10/07/2013
+
 "details.assignments.fp.job.as_from_full" 10/13/2012
 "details.assignments.fp.job.as_to_full"  Present or 11/16/2012
 
 "details.education.institution.ed_from" 04/2006
 "details.education.institution.ed_to" Present or 04/2008
+
 "details.experiences.experience.exp_from" 05/2005
 "details.experiences.experience.exp_to" Present or 04/2007
+
 "details.tsexams.tsexam.ts_when" 05/30/2012
+
 "dev_last_worked_ts" 1443484800000
 
-// String fields to be changed to double field
+// String fields changed to double fields
+
 "details.dev_bill_rate" 25
 "details.dev_billed_assignments" 8
 "details.dev_total_hours" 0
