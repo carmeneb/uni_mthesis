@@ -5,18 +5,26 @@ mongo <- mongo.create(host = '10.27.0.2', db = 'upwork')
 
 mongo.is.connected(mongo)  == true
 
+
 // list all databases
+
 mongo.get.database(mongo)
 
+
 // assign db value of database
+
 db <- "upwork"
 
+
 // list all collections in a database
+
 mongo.get.database.collection(mongo, db)
+
 
 // assign collection value to the collection you want to use
 
 coll <- "upwork.profiles_phl"
+
 
 // count the number of documents in a collection
 
