@@ -1,0 +1,229 @@
+R version 3.2.2 (2015-08-14) -- "Fire Safety"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[R.app GUI 1.66 (6996) x86_64-apple-darwin13.4.0]
+
+[History restored from /Users/carmenbaillie/.Rapp.history]
+
+> x<- c(x,3)
+Error: object 'x' not found
+> x<-NULL
+> x<-c(x,3)
+> x
+[1] 3
+> x<-c(x,5)
+> x
+[1] 3 5
+> a <- c(1,3,4,3,5.5) # numeric vector
+> b <- c("john","david","kumar","jane","mariam")
+> b <- c("john","david","kumar","jane","mariam") # vector of characters
+> C <- c(TRUE,TURE,FALSE,T,F) # LOGICAL VECTOR
+Error: object 'TURE' not found
+> c <- c(TRUE,TRUE,FALSE,T,F) # Logical vector
+> c
+[1]  TRUE  TRUE FALSE  TRUE FALSE
+> c[3]
+[1] FALSE
+> c[c=T]
+[1]  TRUE  TRUE FALSE  TRUE FALSE
+> c[c==T]
+[1] TRUE TRUE TRUE
+> a[a>1 & a<4]
+[1] 3 3
+> which(a>1 & a<4)
+[1] 2 4
+> # Some ways of creating a sequence
+> seq(2,100,4)
+ [1]  2  6 10 14 18 22 26 30 34 38 42 46 50 54 58 62 66 70 74 78 82 86 90 94 98
+> 2:6 #series of integers
+[1] 2 3 4 5 6
+> #paste as a function
+> paste("A",1:6,sep="-")
+[1] "A-1" "A-2" "A-3" "A-4" "A-5" "A-6"
+> # repeat as a function
+>  rep(b,5)
+ [1] "john"   "david"  "kumar"  "jane"   "mariam" "john"   "david"  "kumar"
+ [9] "jane"   "mariam" "john"   "david"  "kumar"  "jane"   "mariam" "john"
+[17] "david"  "kumar"  "jane"   "mariam" "john"   "david"  "kumar"  "jane"
+[25] "mariam"
+> rep(letters[1:5],3)
+ [1] "a" "b" "c" "d" "e" "a" "b" "c" "d" "e" "a" "b" "c" "d" "e"
+> # sample with or without replacment. set replace = T or F
+> sample(LETTERS, 5, replace=TRUE)
+[1] "U" "W" "R" "I" "J"
+> sample(LETTERS, 5, replace=TRUE)
+[1] "S" "V" "I" "V" "Q"
+> sample(LETTERS, 5, replace=FALSE)
+[1] "T" "F" "H" "G" "P"
+> sample(LETTERS, 5, replace=FALSE)
+[1] "R" "P" "H" "D" "J"
+> sample(LETTERS, 5, replace=FALSE)
+[1] "G" "R" "P" "Z" "W"
+> sample(LETTERS, 5, replace=FALSE)
+[1] "P" "H" "J" "K" "G"
+> sample(LETTERS, 5, replace=FALSE)
+[1] "G" "S" "Z" "W" "N"
+> set.seed(200)
+> sample(LETTERS, 5, replace=TRUE)
+[1] "N" "P" "P" "R" "R"
+> set.seed(200)
+> sample(LETTERS, 5, replace=TRUE)
+[1] "N" "P" "P" "R" "R"
+> # set.seed - used to reproduce a random sample
+> #vector dice
+> dice <- sample(1:6, 50, replace=T)
+> # explore objects
+> typeof(dice)
+[1] "integer"
+> dice[0]
+integer(0)
+> # numeric can be of type integer, double or irrational
+> str(dice)
+ int [1:50] 6 5 1 4 2 3 4 1 4 3 ...
+> is.vector(dice)
+[1] TRUE
+> dice[1]
+[1] 6
+> dice[2]
+[1] 5
+> dice[0]
+integer(0)
+> dtest <- 5
+> dtest
+[1] 5
+> str(dtest)
+ num 5
+> dtest[0]
+numeric(0)
+> c
+[1]  TRUE  TRUE FALSE  TRUE FALSE
+> b
+[1] "john"   "david"  "kumar"  "jane"   "mariam"
+> a
+[1] 1.0 3.0 4.0 3.0 5.5
+> str(c)
+ logi [1:5] TRUE TRUE FALSE TRUE FALSE
+> str(b)
+ chr [1:5] "john" "david" "kumar" "jane" "mariam"
+> str(a)
+ num [1:5] 1 3 4 3 5.5
+> is.vector(dtest)
+[1] TRUE
+> is.vector(b)
+[1] TRUE
+> b
+[1] "john"   "david"  "kumar"  "jane"   "mariam"
+> nonvect <- [1,2,3,4;5,6,7,8]
+Error: unexpected '[' in "nonvect <- ["
+> nonvect <- (1,2,3,4;5,6,7,8)
+Error: unexpected ',' in "nonvect <- (1,"
+> nonvect <- c(1,2,3,4;5,6,7,8)
+Error: unexpected ';' in "nonvect <- c(1,2,3,4;"
+> nonvect <- c(1,2,3,4:5,6,7,8)
+> nonvect
+[1] 1 2 3 4 5 6 7 8
+> nonvect <- c([1,2,3,4],[5,6,7,8])
+Error: unexpected '[' in "nonvect <- c(["
+> nonvect <- array(1:10, dim=c(1,2))
+> nonvec
+Error: object 'nonvec' not found
+> nonvect
+     [,1] [,2]
+[1,]    1    2
+> help(c)
+starting httpd help server ... done
+> nonvect <- array(1:10, dim=c(2,2))
+> nonvect
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+> is.vector(nonvect)
+[1] FALSE
+> is.array(nonvect)
+[1] TRUE
+> nonvect <- array(1:10, dim=c(2,2,2))
+> nonvect
+, , 1
+
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+, , 2
+
+     [,1] [,2]
+[1,]    5    7
+[2,]    6    8
+
+> nonvect <- array(1:10, dim=c(2,2,3))
+> nonvect <- array(1:10, dim=c(2,2,3))
+> nonvect
+, , 1
+
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+, , 2
+
+     [,1] [,2]
+[1,]    5    7
+[2,]    6    8
+
+, , 3
+
+     [,1] [,2]
+[1,]    9    1
+[2,]   10    2
+
+> nonvect <- array(1:10, dim=c(2,2,2,2))
+> nonvect
+, , 1, 1
+
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+, , 2, 1
+
+     [,1] [,2]
+[1,]    5    7
+[2,]    6    8
+
+, , 1, 2
+
+     [,1] [,2]
+[1,]    9    1
+[2,]   10    2
+
+, , 2, 2
+
+     [,1] [,2]
+[1,]    3    5
+[2,]    4    6
+
+> head(dice)
+[1] 6 5 1 4 2 3
+> tail(dice)
+[1] 5 1 1 6 4 4
+> length(dice)
+[1] 50
+> summary(dice)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+   1.00    2.00    3.50    3.36    4.75    6.00
+>

@@ -1,0 +1,77 @@
+
+// Connecting to MongoDB
+
+mongo <- mongo.create(host = '10.27.0.2', db = 'upwork')
+
+mongo.is.connected(mongo)  == true
+
+// list all databases
+mongo.get.database(mongo)
+
+// assign db value of database
+db <- "upwork"
+
+// list all collections in a database
+mongo.get.database.collection(mongo, db)
+
+// assign collection value to the collection you want to use
+
+coll <- "upwork.profiles_phl"
+
+// count the number of documents in a collection
+
+mongo.count(mongo, coll)
+
+
+// Query database and put results in a data frame
+
+count <- mongo.count(mongo, coll, query = '{"details.dev_billed_assignments": {"$gt: 0"}}')
+cursor <- mongo.find(mongo, query)
+name <- vector("character", count)
+age <- vector("numeric", count)
+i <- 1
+while (mongo.cursor.next(cursor)) {
+	b <- mongo.cursor.value(cursor)
+	name[i] <- mongo.bson.value(b, "name")
+	age[i] <- mongo.bson.value(b, "age")
+	i <- i + 1
+}
+df <- as.data.frame(list(name=name, age=age))
+
+
+
+
+
+
+
+
+// Creating a list
+
+jobs <- mongo.find(mongo, coll, list(('$in'=c("details.dev_billed_assignments"))))
+
+
+// Change MongoDB to lists in R
+
+           mongo.insert(mongo, “test.people”, list(name=”John”, age=34L,
+               address=”1033 Vine Street”))
+
+
+
+           record <- list(fruits=c(“apple”, “orange”, “banana”))
+           mongo.insert(mongo, “test.misc”, record)
+
+
+
+> do.call(c, unlist(testing_list, recursive=FALSE))
+
+
+
+if(mongo.is.connected(mongo) == TRUE) {
+  jobs <- mongo.distinct(mongo, coll, "details.dev_billed_assignments")
+  hist(pop)
+  boxplot(pop)
+}
+  nr <- mongo.count(mongo, coll, list('jobs' = list('$lte' = 2)))
+  print( nr )
+  pops <- mongo.find.all(mongo, coll, list('pop' = list('$lte' = 2)))
+  head(pops, 2)

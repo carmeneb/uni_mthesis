@@ -5,6 +5,7 @@ db.profiles_phl_test.find({"details.dev_total_hours": {$type: 2}}).forEach(funct
             db.profiles_phl_test.save(result);}
         )
 
+
 // Change string not in an array to double with print type, print results and save
 
 db..find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {
@@ -14,19 +15,30 @@ db..find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {
               db..save(result);}
                 )
 
+db.profiles_phl.find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {
+		result.details.dev_total_hours=parseFloat(result.details.dev_total_hours);
+          print(typeof(result.details.dev_total_hours));
+            print(result.details.dev_total_hours);}
+        )
+
 
 // Change string in an array to double with prnt type, print results and save
 /// Sudo Code
 find(results we want).foreachresult loop {
-  // identify if result is an array of jobs or not
+
+  //// identify if result is an array of jobs or not
   if result is array of jobs then loop through array {
     for each job in array {
-      Do conversion from string to double
+      ///// do this action
+      convert string into double
     }
   } else if result is not array then {
-    Do conversion from string to double
+      ///// do this action
+      convert string into double
   }
 }
+
+/// Code executed
 
 db.profiles_phl_test.find({"details.assignments.hr.job": {$exists:true}}).forEach(function(result) {
   print(result.details.dev_first_name);
@@ -49,38 +61,11 @@ db.profiles_phl_test.save(result);
 )
 
 
-
-// Error in attempting to change from Double to String
-db.profiles_phl_test.find({"details.dev_total_hours": {$type: 1}}).forEach(function(result) {
-		result.details.dev_total_hours="result.details.dev_total_hours";
-            db.profiles_phl_test.save(result);}
-        )
-
-// Error pring results
-db.profiles_phl_test.find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {
-  print(result.details.dev_total_hours);}
-        )
-
-
-// Change string to date example
-
-db.collection.find().forEach(function(element){
-      element.OrderDate = ISODate(element.OrderDate);
-          db.collection.save(element);}
-        )
-
-// Change string to date Test - did not work
-
-db.profiles_phl_test.find({"details.assignments.fp.job.as_from_full": {$type: 2}}).forEach(function(result) {
-  result.details.dev_total_hours=ISODate(result.details.assignments.fp.job.as_from_full);
-    print(typeof(result.details.dev_total_hours));
-    print(result.details.dev_total_hours);}
-        )
-
-        assignment_length:
-             { $divide:
-               [ { $subtract:
-                   [ "$details.assignments.fp.job.as_to_full", "$details.assignments.fp.job.as_from_full" ] }, { $multiply: [ 1000, 60, 60, 24 ] } ] }
+// Convert date range differential into days
+assignment_length:
+     { $divide:
+       [ { $subtract:
+           [ "$details.assignments.fp.job.as_to_full", "$details.assignments.fp.job.as_from_full" ] }, { $multiply: [ 1000, 60, 60, 24 ] } ] }
 
 
 
@@ -100,7 +85,6 @@ db.profiles_phl_test.find({"details.assignments.fp.job.as_from_full": {$type: 2}
 // String fields to be changed to double field
 "details.dev_bill_rate" 25
 "details.dev_billed_assignments" 8
-
 "details.dev_total_hours" 0
 
 "details.assignments.hr.job.as_total_hours_precise" 0

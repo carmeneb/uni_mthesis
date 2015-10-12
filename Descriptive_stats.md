@@ -9,9 +9,22 @@
 
 ## Profile Job Assignment Details
 
+### Profiles with *either* Total Hours > 0 *or* Billed Assignments > 0 *or* Hourly Assignment Details *or* Fixed Assignment Details = **43180**
+// Profiles converted from strings
+
+```db.profiles_phl.find({ $or: [ { "details.dev_billed_assignments": { $gt: 0.0 } }, { "details.dev_total_hours": { $gt: 0.0 } }, { "details.assignments.fp.job": { $exists: true } }, { "details.assignments.hr.job": { $exists: true } } ] }).count()```
+
+
 ### Profiles with *either* Total Hours > 0 *or* Billed Assignments > 0 *or* Hourly Assignment Details *or* Fixed Assignment Details = **43163**
 
 * ```db.profiles_phl.find { $or: [ { "details.dev_total_hours": { $gt: 0.0 } }, { "details.dev_billed_assignments": { $gt: "0" } }, { "details.assignments.hr.job": { $exists: true } }, { "details.assignments.fp.job": { $exists: true } } ] }```
+
+db.profiles_phl.find {
+						{ $or: [ { "details.dev_total_hours": { $gt: 0.0 } }
+	  		 				   , { "details.dev_billed_assignments": { $gt: 0.0 } }
+	  		 				   , { "details.assignments.hr.job": { $exists: true } }
+	  		 				   , { "details.assignments.fp.job": { $exists: true } } ] }
+}.count()
 
 *NB: for "details.assignments.fp" or "details.assignments.hr": { $exists: true } ~ use { $exists: true } or { $type: 3 }*
 

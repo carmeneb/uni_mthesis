@@ -1,0 +1,4 @@
+mongo <- mongoDbConnect("test", "localhost", 27017)
+mongo <- mongoDbConnect
+output <- dbGetQuery
+mongo <- mongoDBConnect

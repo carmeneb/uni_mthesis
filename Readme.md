@@ -1,10 +1,8 @@
 #Cheatsheet
 
-My cheatsheet for working with R and MongoDB and all other related applications.
+General use guides for working with MongoDB, MongoChef, R, Terminal, Atom etc.
 
-Notes include general use guides for Atom, R, Terminal, MongoDB, as well as steps to execute tasks.
-
-####Peter Lauries 6 Key things
+## Peter Lauries 6 Key things
 Best practice for working with code.
 1. Source Control
 2. Formal Releases
@@ -15,7 +13,7 @@ Best practice for working with code.
   * Environment
   * Collaboration  
 
-##Working with MongoDB & MongoChef
+## Working with MongoDB & MongoChef
 1. Open Terminal
 2. cd Source/uni_mthesis
 3. atom .
@@ -32,14 +30,16 @@ Best practice for working with code.
 
  ``` Cmd + shift + h ``` - opens up the git menu in atom
 
- ``` Cmd + shift + p -> markdown preview ``` - opens up the command window -> search for markdown preview.
+ ```Cmd + shift + p -> markdown preview```  - opens up the command window -> search for markdown preview
 
 
 ### R Studio
-```> mongo <- mongo.create(host = '10.27.0.2', db = 'upwork')
-```
+
+```> mongo <- mongo.create(host = '10.27.0.2', db = 'upwork')``` - connect to database
+
 
 ###Terminal
+
 ```atom .``` opens atom window in directory folder
 
 ```cd``` change directory
@@ -70,33 +70,6 @@ Best practice for working with code.
 
 ```git status```
 
-###MongoChef
-####Changing type
-
-```db.profiles.find({'details.dev_total_hours': {$type: 2}}).limit(3).forEach(
-    function (x) {
-        x.details.dev_total_hours=parseFloat(x.details.dev_total_hours);
-        db.profiles.save(x);}
-    );```
-
-```db.profiles.find({'details.dev_total_hours': {$type: 2}}).forEach(
-        function (result) {
-            result.details.dev_total_hours=parseFloat(result.details.dev_total_hours);
-            db.profiles.save(result);}
-        );```
-
-        function replaceByValue( field, oldvalue, newvalue ) {
-            for( var k = 0; k < json.length; ++k ) {
-                if( oldvalue == json[k][field] ) {
-                    json[k][field] = newvalue ;
-                }
-            }
-            return json;
-        }
-
-
-
-
 
 ##Useful Links
 
@@ -111,13 +84,16 @@ Best practice for working with code.
 [R Code School](https://www.datacamp.com/)
 
 ###MongoDB
+
 http://brockt.tumblr.com/post/35055958195/getting-started-with-mongodb-on-mac-osx
 
 ###MongoChef
+
 [Datas manipulation in MongoDB](http://blog.physalix.com/datas-manipulation-in-mongodb-rename-field-change-type-add-sub-document/)
 
 
 ###RMongo
+
 https://cran.r-project.org/web/packages/RMongo/index.html
 
 https://cran.r-project.org/web/packages/RMongo/RMongo.pdf
@@ -134,8 +110,7 @@ help("mongo.create")
 
 ###Markdown
 
-GitHub Guides
-[Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
+GitHub Guides [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
 
 Daring Fireball [Markdown:Syntax](http://daringfireball.net/projects/markdown/syntax)
 
