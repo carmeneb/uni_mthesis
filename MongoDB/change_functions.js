@@ -66,6 +66,7 @@ db.profiles_phl_test.save(result);
 
 
 
+
 // Convert date range differential into days
 assignment_length:
      { $divide:
