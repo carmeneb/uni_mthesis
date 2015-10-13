@@ -1,4 +1,34 @@
-// Change string not in an array to double and save
+/// Inserted qual fields
+
+// first insert fields into document through aggregation function
+
+ <- see qual_fields_add.js
+
+// create index in new collection
+
+db.qual_fields_add.createIndex( { details.education.institution.ed_degree: "text" } )
+
+// search for numbers of each field for profiles to change
+
+db.qual_fields_add.find( { "details.education.institution": { $exists: true } } ).count() ***121784***
+
+db.qual_fields_add.find( { $text: { $search: "\"high school\"" } } ).count() ***8238***
+db.qual_fields_add.find( { $text: { $search: "certificate" } } ).count() *** 4 ***
+db.qual_fields_add.find( { $text: { $search: "diploma" } } ).count() *** 5180 ***
+db.qual_fields_add.find( { $text: { $search: "bachelor" } } ).count() *** 92261 ***
+db.qual_fields_add.find( { $text: { $search: "master" } } ).count() *** 6866 ***
+db.qual_fields_add.find( { $text: { $search: "doctor" } } ).count() *** 805 ***
+db.qual_fields_add.find( { $text: { $search: "PhD" } } ).count() *** 1 ***
+
+// then run update function in the intelishell
+
+db.qual_fields_add.update( { $text: { $search: "master" } }, { $set: { "qual_masters": true } }, { multi: true} )
+
+
+
+
+
+/// Change string not in an array to double and save
 
 db.profiles_phl_test.find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {
 		result.details.dev_total_hours=parseFloat(result.details.dev_total_hours);
@@ -6,7 +36,7 @@ db.profiles_phl_test.find({"details.dev_total_hours": {$type: 2}}).forEach(funct
         )
 
 
-// Change string not in an array to double with print type, print results and save
+/// Change string not in an array to double with print type, print results and save
 
 db..find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {
     result.details.dev_total_hours=parseFloat(result.details.dev_total_hours);
@@ -22,8 +52,8 @@ db.profiles_phl.find({"details.dev_total_hours": {$type: 2}}).forEach(function(r
         )
 
 
-// Change string in an array to double with prnt type, print results and save
-/// Sudo Code
+/// Change string in an array to double with prnt type, print results and save
+// Sudo Code
 find(results we want).foreachresult loop {
 
   //// identify if result is an array of jobs or not
@@ -38,7 +68,7 @@ find(results we want).foreachresult loop {
   }
 }
 
-/// Code executed
+// Code executed
 
 db.profiles_phl_test.find({"details.assignments.hr.job": {$exists:true}}).forEach(function(result) {
   print(result.details.dev_first_name);
@@ -59,9 +89,6 @@ db.profiles_phl_test.find({"details.assignments.hr.job": {$exists:true}}).forEac
 db.profiles_phl_test.save(result);
 }
 )
-
-
-
 
 
 
