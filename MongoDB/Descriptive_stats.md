@@ -109,6 +109,50 @@
  * ```db.profiles_phl.find( { "details.assignments.fp.job.as_to_full": "Present", "details.assignments.hr.job.as_to_full": "Present" } ).count()```
 
 
+### Profiles *with different* Billed Assignments & Assignment Counts = ***8693***
+ * ``` db.profiles_phl_working.find({ "assignments_listed_billed_delta": { $gt: 0.0 } }).count() ```
+
+
+
+## Education - all
+
+### Education listed ***121784***
+ * ``` db.profiles_phl_working.find({ "education_listed_count": { $gt: 0 } }).count ```
+
+### Diploma ***5180***
+   * ``` db.profiles_phl_working.find({ "education_diploma": true }).count() ```
+
+### Bachelors ***92261***
+  * ``` db.profiles_phl_working.find({ "education_bachelors": true }).count() ```
+
+### Masters ***6866***
+ * ``` db.profiles_phl_working.find({ "education_masters": true }).count() ```
+
+### Doctorate / PhD ***806***
+ * ``` db.profiles_phl_working.find({ "education_doctor": true }).count() ```
+
+
+## Education - worked
+
+### Education listed ***37825***
+  * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_listed_count": { $gt: 0 } }).count ```
+
+### Diploma ***3763***
+    * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_diploma": true }).count() ```
+
+### Bachelors ***30229***
+   * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_bachelors": true }).count() ```
+
+### Masters ***6866***
+  * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_masters": true }).count() ```
+
+### Doctorate / PhD ***806***
+  * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_doctor": true }).count() ```
+
+
+## Experience ***112770***
+  * ```db.profiles_phl_working.find({ "experiences_count": { $gt: 0 } }).count() ```
+
 
 ## Assignment Ranges
 

@@ -1,13 +1,94 @@
+ , skills_count: { $cond: { if: {"$skills_list": {$not: { $type: 10 } } } } then: 0, else: {$size: "$skills"} }
+
+
+, worked_on_platform: { $cond: { if: { $or: [ { "$eq": ["$details.assignments.fp.job", true] }
+                              , { "$eq": ["$details.assignments.hr.job", true] }, { $gt: [ "$details.dev_billed_assignments", 0.0 ] }, { $gt: [ "$details.dev_total_hours", 0.0 ] } ] }
+                                , then: true, else: false } }
+
+, length_on_platform: { $cond: { if: { $or: [ { "$eq": ["$details.assignments.fp.job", true] }
+                              , { "$eq": ["$details.assignments.hr.job", true] } ] }
+                              , then: true, else: false } } // unknown result to be inputted
 
 
 
+
+                              , first_worked: { $cond: { if: { $or: [ { "$eq": ["$details.assignments.fp.job", true] }
+                                                           , { "$eq": ["$details.assignments.hr.job", true] } ] } // unknown results to be inputted
+
+
+
+
+
+
+// to be entered into summary
+
+
+
+
+
+
+$push: {  {
+          $each: [ { wk: 5, score: 8 }, { wk: 6, score: 7 }, { wk: 7, score: 6 } ],
+          $sort: { : 1 },
+          $slice: 3
+
+
+
+ , date_first_worked: { "array1": { "$ifNull": [ "$array1", { "$literal": [] } ]}, "array2": { "$ifNull": [ "$array2", { "$literal": [] } ]}}
+
+ { "$project":
+ {
+   "array1": { "$ifNull": [ "$array1", { "$literal": [] } ]}
+   , "array2": { "$ifNull": [ "$array2", { "$literal": [] } ]}
+ }
+},
+
+
+    { "$project": { "allval": { "$setUnion": [ "$array1", "$array2" ]}}},
+
+
+
+
+	, skills_count:
+
+	{ $cond: { if: { "$ifNull": ["$details.assignments.fp.job.0", null] }, then: "$details.skills.skill.skl_name", else: { "$map": { "input": ["A"], "as": "el", "in": "$details.skills.skill.skl_name"} } } }
+
+
+, worked_on_platform: { $cond: { if: { $or: [ { "$eq": ["$details.assignments.fp.job", true] }
+                        , { "$eq": ["$details.assignments.hr.job", true] }, { $gt: [ "$details.dev_billed_assignments", 0.0 ] } ] }
+                        , then: true, else: false } }
+
+{ $gt: [ <expression1>, <expression2> ] }
+
+
+
+, worked_on_platform: { $cond: { if: { $or: [ { "$eq": ["$details.assignments.fp.job", true] }
+                        , { "$eq": ["$details.assignments.hr.job", true] }, {"eq": ["details.dev_billed_assignments", { "$gt": 0.0 } ] }
+                        , then: true, else: false } }
+
+	, skills: { $cond: { if: { "$ifNull": ["$details.skills.skill.0", null] }, then: "$details.skills.skill.skl_name", else: { "$map": { "input": ["A"], "as": "el", "in": "$details.skills.skill.skl_name"} } } }
+
+
+, tests: { $cond: { if: { "$eq": ["$tests_exists", true] }, then:
+	  			, { $cond: { if: { "$eq": ["$details.tsexams.tsexams.tsexam.0", true] }, then: "$details.tsexams.tsexam.ts_name_raw", else: { "$map": { "input": ["A"], "as": "el", "in": "$details.tsexams.tsexam.ts_name_raw"} } } },
+	  			else: null } }
+
+
+{ $map: { input: <expression>, as: <string>, in: <expression> } }
+
+, skills: { $cond: { if: { "$ifNull": ["$details.skills.skill.0", null] }, then: "$details.skills.skill.skl_name", else: { "$map": { "input": ["A"], "as": "el", "in": "$details.skills.skill.skl_name"} } } }
+
+, job_subgroups: { $cond: { if: { "$ifNull": ["$job_subgroups_lists.0", null] }, then: "$job_subgroups_lists", else: { "$map": { "input": ["A"], "as": "el", "in": "$job_subgroups_lists"} } } }
+
+, tests: { $cond: { if: { "$ifNull": ["$tests_listed.0", null] }, then: "$tests_listed", else: { "$map": { "input": ["A"], "as": "el", "in": "$tests_listed"} } } }
 
 , tests: { $cond: { if: { "$ifNull": ["$details.tsexams.tsexams.0", null] }, then: "$details.tsexams.tsexam.ts_name_raw", else: { "$map": { "input": ["A"], "as": "el", "in": "$details.tsexams.tsexam.ts_name_raw"} } } }
 
+	, job_subgroups_exists: { $cond: { if: {$eq: ["details.dev_job_categories_v2.dev_job_categories_v": false ] , then: 6, else: 87 } } }
 
+	, tests: { $cond: { if: { { "$eq": ["$details.tsexams.tsexam", true] }, then: 2, else: 40} }
 
-
-
+	, job_subgroups_exists: { $cond: { if: {$ne: ["details.dev_job_categories_v2.dev_job_categories_v": false ], then: 6 , else: 87 } } }
 
 {
 	details: 1
