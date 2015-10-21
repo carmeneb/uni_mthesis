@@ -30,7 +30,7 @@ Best practice for working with code.
 
  ``` Cmd + shift + h ``` - opens up the git menu in atom
 
- ```Cmd + shift + p -> markdown preview```  - opens up the command window -> search for markdown preview
+ ```Cmd + shift + p -> markdown preview``` - opens up the command window -> search for markdown preview
 
 
 ### R Studio
@@ -61,6 +61,8 @@ Best practice for working with code.
 ```ps aux | grep mongo``` lists all processes with mongo
 
 ```kill``` signal to following process command
+
+``` pwd ``` print working directory
 
 
 ###Git

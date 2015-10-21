@@ -1,0 +1,43 @@
+## text mining
+
+### set working directory
+
+setwd('/Users/carmenbaillie/Data/Upwork CSV')
+
+#### read csv folder
+
+jobsfp <- read.csv ("job_titles_fp_grouped.csv", stringsAsFactors=FALSE)
+
+### see csv data type
+
+str(jobsfp)
+
+### collapsing all job titles (elements) into one vector
+
+job_title <- paste(jobsfp$X_id, collapse=" ")
+
+### creating a source
+
+jobsfp_source <- VectorSource(job_title)
+
+### creating a corpus (collection of text)
+
+corpus <- Corpus(jobsfp_source)
+
+### cleaning data
+
+\\ changing all letters to lower caps
+
+corpus <- tm_map(corpus, content_transformer(tolower))
+
+\\ removing punctuation
+
+corpus <- tm_map(corpus, removePunctuation)
+
+\\ stripping whitespace
+
+corpus <- tm_map(corpus, stripWhitespace)
+
+\\ removing stopwords (i.e. 'I', 'we', 'our')
+
+corpus <- tm_map(corpus, removeWords, stopwords("english"))

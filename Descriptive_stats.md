@@ -119,6 +119,11 @@
 ### Education listed ***121784***
  * ``` db.profiles_phl_working.find({ "education_listed_count": { $gt: 0 } }).count ```
 
+### Have tertiary education ***98221***
+
+  * ```db.profiles_phl_working.find({ $or: [ { "education_diploma": true }, { "education_bachelors": true }, { "education_masters": true }, { "education_doctor": true } ] }).count()```
+
+
 ### Diploma ***5180***
    * ``` db.profiles_phl_working.find({ "education_diploma": true }).count() ```
 
@@ -137,16 +142,20 @@
 ### Education listed ***37825***
   * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_listed_count": { $gt: 0 } }).count ```
 
+### Have tertiary education ***33231***
+
+ * ```db.profiles_phl_working.find({ "worked_on_platform": true, $or: [ { "education_diploma": true }, { "education_bachelors": true }, { "education_masters": true }, { "education_doctor": true } ] }).count()```
+
 ### Diploma ***3763***
     * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_diploma": true }).count() ```
 
 ### Bachelors ***30229***
    * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_bachelors": true }).count() ```
 
-### Masters ***6866***
+### Masters ***2407***
   * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_masters": true }).count() ```
 
-### Doctorate / PhD ***806***
+### Doctorate / PhD ***314***
   * ``` db.profiles_phl_working.find({ "worked_on_platform": true, "education_doctor": true }).count() ```
 
 
@@ -302,6 +311,17 @@ db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "81", $lte:
  #### Profiles with > 50 hourly jobs = 706
  qury: db.profiles.find( { "details.assignments.hr.job.50.as_job_type": "Hourly" } ).count()
 
+
+## Tests
+
+### Without tests
+ * ``` db.profiles_phl_working.find({ "tests_listed": false }).count()``` ***58981***
+
+### With tests
+ * ``` db.profiles_phl_working.find({ "tests_listed": true }).count() ``` ***109382***
+
+### Number of tests
+ * ``` { "tests_listed": false, "tests_count": { $gte: 0, $lte: 1 } } ```
 
 ## Bill Rates
 
