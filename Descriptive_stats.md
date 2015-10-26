@@ -162,8 +162,83 @@
 ## Experience ***112770***
   * ```db.profiles_phl_working.find({ "experiences_count": { $gt: 0 } }).count() ```
 
+### experience All
+  > summary(experience$experiences_count)
+     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+     0.00    0.00    1.00    1.66    2.00   94.00
+
+     > sum(experience$experiences_count)
+     [1] 279549
+
+  > summary(experience$experience_length) // incorrect does not take into account 0 records
+     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's
+     0.08    3.66    6.08    7.38    9.42   65.79   55593
+
+     > summary(experience$experience_length)
+        Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+       0.000   0.000   3.748   4.943   7.586  65.790
+
+### experience worked
+  > summary(worked$experiences_count)
+     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+    0.000   1.000   2.000   2.638   4.000  94.000
+
+    > sum(worked$experiences_count)
+    [1] 113916
+
+  > summary(worked$experience_length)  // incorrect does not take into account 0 records
+     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's
+    0.164   4.833   7.419   8.491  10.590  54.530    4556
+
+    > summary(worked$experience_length)
+       Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+      0.000   4.000   6.748   7.595  10.170  54.530
+
+### experience not_worked
+> summary(not_worked$experiences_count)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+  0.000   0.000   1.000   1.323   2.000  51.000
+
+  > sum(not_worked$experiences_count)
+  [1] 165633
+
+      > summary(not_worked$experience_length)
+         Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+        0.000   0.000   2.499   4.029   6.334  65.790
+
+
+## Tests
+
+### Without tests
+ * ``` db.profiles_phl_working.find({ "tests_listed": false }).count()``` ***58981***
+
+### With tests
+ * ``` db.profiles_phl_working.find({ "tests_listed": true }).count() ``` ***109382***
+
+ > summary(tests_worked$tests_count)
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+   0.000   2.000   4.000   4.505   6.000  67.000
+
+   > summary(tests_not_worked$tests_count)
+      Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+     0.000   0.000   1.000   1.367   2.000  41.000
+
+     > summary(tests_all$tests_count)
+        Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+       0.000   0.000   1.000   2.172   3.000  67.000
 
 ## Assignment Ranges
+
+#### Billed Assignments
+
+profileId     billed_assignments
+~01000041c74fe756d6:    1   Min.   :   1.00   
+~0100033173e447046e:    1   1st Qu.:   1.00   
+~0100043d2e3730a28f:    1   Median :   3.00   
+~010005e5e8e1fbe433:    1   Mean   :  11.33   
+~01000917619b8c9a18:    1   3rd Qu.:  10.00   
+~010009616ea791b5bb:    1   Max.   :1031.00   
+(Other)            :43092      
 
 
 #### Profiles with 0 <= billed assignments <= 10 = 7386
@@ -210,137 +285,13 @@ db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "71", $lte:
 db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "81", $lte: "90" } }).count()``
 
 
-#### Profiles with 91 <= billed assignments <= 100 = **0**
- * ``
- * ``
-#### Profiles with 101 <= billed assignments <= 110 = **756**
- * ``
- * ``
-#### Profiles with 111 <= billed assignments <= 120  = **670**
- * ``
- * ``
-#### Profiles with 121 <= billed assignments <= 130 = **561**
- * ``
- * ``
-#### Profiles with 131 <= billed assignments <= 140 = **504**
- * ``
- * ``
-#### Profiles with 141 <= billed assignments <= 150 = **502**
- * ``
- * ``
-#### Profiles with 151 <= billed assignments <= 160 = **459**
- * ``
- * ``
-#### Profiles with 161 <= billed assignments <= 170 = **396**
- * ``
- * ``
-#### Profiles with 131 <= billed assignments <= 180 = **389**
- * ``
- * ``
-#### Profiles with 141 <= billed assignments <= 190 = **306**
- * ``
- * ``
-
-
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gt: "0", $lte: "10" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "11", $lte: "20" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "21", $lte: "30" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "31", $lte: "40" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "41", $lte: "50" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "51", $lte: "60" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "61", $lte: "70" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "71", $lte: "80" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "81", $lte: "90" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "91", $lte: "100" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "101", $lte: "110" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "111", $lte: "120" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "121", $lte: "130" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "131", $lte: "140" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "141", $lte: "150" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "151", $lte: "160" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "161", $lte: "170" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "171", $lte: "180" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "181", $lte: "190" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "191", $lte: "200" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "201", $lte: "210" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "211", $lte: "220" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "221", $lte: "230" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "231", $lte: "240" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "241", $lte: "250" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "251", $lte: "260" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "261", $lte: "270" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "271", $lte: "280" } }).count()
-
- db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "281", $lte: "290" } }).count()
-
-
-
-
-
- query ```db.profiles.find( { "details.dev_country": "Philippines", "details.dev_billed_assignments": { $gte: "40", $lte: "50" } } ).count()```
-
-
- #### Profiles with > 50 hourly jobs = 706
- qury: db.profiles.find( { "details.assignments.hr.job.50.as_job_type": "Hourly" } ).count()
-
-
-## Tests
-
-### Without tests
- * ``` db.profiles_phl_working.find({ "tests_listed": false }).count()``` ***58981***
-
-### With tests
- * ``` db.profiles_phl_working.find({ "tests_listed": true }).count() ``` ***109382***
-
-### Number of tests
- * ``` { "tests_listed": false, "tests_count": { $gte: 0, $lte: 1 } } ```
-
-## Bill Rates
-
-
-
-
-## Last worked in 2014
-
-
-
-
-
 ## Job Categories
 
- #### Profiles with Job Categories = 158730
+#### Profiles with Job Categories = 158730
 
  query ```db.profiles.find({ "details.dev_country": "Philippines", "details.dev_job_categories_v2.dev_job_categories_v": {$exists: true}}).count()```
 
- #### Profiles without Job Categories = 9633
+#### Profiles without Job Categories = 9633
 
  query ```db.profiles.find({ "details.dev_country": "Philippines", "details.dev_job_categories_v2.dev_job_categories_v": {$exists: false}}).count()```
 
@@ -348,8 +299,14 @@ db.profiles_phl_ad.find ({ "details.dev_billed_assignments": { $gte: "81", $lte:
      * Query ran: ```db.profiles.find({ "details.dev_country": "Philippines", "details.dev_job_categories_v2.dev_job_categories_v": {$exists: false}, "details.dev_billed_assignments": { $gt: "0" }}).count()```
 
 
+## Job titles
 
-## Profiles with Blurbs
+ * ` db.jobs_phl_all.count() ` ***452142***
+
+ > head(frequency)
+representative       customer        service      assistant        support        manager 
+         32957          29980          28918          20749          17283          15779
+
 
 
 #### Profiles without Blurbs = 9603
@@ -373,11 +330,11 @@ db.profiles_phl_ad.find( { $or: [ { "details.dev_portrait": { $exists: "true" } 
 
 ## Profile Accessibility
 
-    #### Profiles Open to oDesk Users only (?) = 168363
+#### Profiles Open to oDesk Users only (?) = 168363
 
     query ``db.profiles.find({ "details.dev_country": "Philippines" },{"details.dev_ui_profile_access": "oDesk Users only"}).count()```
 
-    #### Public Profiles (?) = 138679
+#### Public Profiles (?) = 138679
 
     query ```db.profiles_phl.find(  { "details.dev_ui_profile_access": "Public" } ).count()```
 

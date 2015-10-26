@@ -26,8 +26,6 @@ db.qual_fields_add.update( { $text: { $search: "master" } }, { $set: { "qual_mas
 
 
 
-
-
 /// Change string not in an array to double and save
 
 db.profiles_phl_test.find({"details.dev_total_hours": {$type: 2}}).forEach(function(result) {

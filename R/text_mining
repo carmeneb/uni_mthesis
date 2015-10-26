@@ -41,3 +41,18 @@ corpus <- tm_map(corpus, stripWhitespace)
 \\ removing stopwords (i.e. 'I', 'we', 'our')
 
 corpus <- tm_map(corpus, removeWords, stopwords("english"))
+
+### create documentterm matrix
+
+dtm <- DocumentTermMatrix(corpus)
+
+dtm2 <- as.matrix(dtm)
+
+\\ create named vector
+frequency <- colSums(dtm2)
+
+\\ sort frequency
+frequency <- sort(frequency, decreasing=TRUE)
+
+\\ receive summary
+head(frequency)
