@@ -1,6 +1,6 @@
 #### New Contract Growth
 
-` db.profiles_phl_working.find({"assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "date_first_worked": { $gte: ISODate("2010-01-02T14:00:00.000+0000"), $lte: ISODate("2011-01-02T14:00:00.000+0000") } }).count() `
+db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "worked_on_platform": true, "date_last_worked": { $gte: ISODate("2006-01-02T14:00:00.000+0000"), $lt: ISODate("2007-01-02T14:00:00.000+0000") } }).count()
 
 #### New Contracts
 
@@ -26,11 +26,25 @@
 
 ` db.profiles_phl_working.find({ $or: [ { "assignments_hr_end_dates": ISODate("2015-09-30T14:00:00.000+0000") }, { "assignments_fp_end_dates": ISODate("2015-09-30T14:00:00.000+0000") } ] } ).count() `
 
-#### Attrition ~ unable to calculate
+#### Attrition
+
+db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "worked_on_platform": true, "date_last_worked": { $gte: ISODate("2006-01-02T14:00:00.000+0000"), $lt: ISODate("2007-01-02T14:00:00.000+0000") } }).count()
+
+\\ calcluated on last date active ~ not used
+
+db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_first_worked": { $gt: ISODate("2006-01-02T14:00:00.000+0000") }, "date_last_worked": { $gte: ISODate("2015-01-01T14:00:00.000+0000"), $lt: ISODate("2015-09-02T14:00:00.000+0000") } }).count()
+
+\\ last active in 3 months ~ not used
+
+db.profiles_phl_working.find({ "date_first_worked": { $gt: ISODate("2006-01-02T14:00:00.000+0000") }, "date_last_worked": { $gte: ISODate("2015-06-02T14:00:00.000+0000"), $lt: ISODate("2016-01-02T14:00:00.000+0000") } }).count()
+
+~ did not use
 
 All profiles ` db.id_contract_last_date_filtered.find({ "finish_date": { $gte: ISODate("2006-01-02T14:00:00.000+0000"), $lt: ISODate("2007-01-02T14:00:00.000+0000") } } ).count() `
 
 Profiles with full history ` db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, $or: [ { "assignments_hr_end_dates": ISODate("2015-09-30T14:00:00.000+0000") }, { "assignments_fp_end_dates": ISODate("2015-09-30T14:00:00.000+0000") }  ] }).count() `
+
+db.profiles_phl_working.find({ "date_first_worked": { $gt: ISODate("2006-01-02T14:00:00.000+0000") }, "date_last_worked": { $gte: ISODate("2015-01-02T14:00:00.000+0000"), $lt: ISODate("2007-01-02T14:00:00.000+0000") } }).count()
 
 
 #### Experience listed
@@ -160,7 +174,7 @@ IT	            "\"IT & Networking\""
 
 db.experience_titles_all.find( { $text: { $search:  "strategy"    } } ).count()
 
-db.experience_titles_all.find( { $text: { $search:  "Management"    } } ).count()
+db.experience_titles_all.find( { $text: { $search:  "Management Manager"pla    } } ).count()
 
 db.experience_titles_all.find( { $text: { $search:  "Planning"    } } ).count()
 

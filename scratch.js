@@ -1,3 +1,56 @@
+{
+billed_assignments:1
+, education_diploma: 1
+, education_bachelors: 1
+, education_bachelors:1
+, education_masters:1
+, education_doctor: 1
+, education_tertiary: { $cond: { if: "$education_bachelors", then: true, else:
+  							{ $cond: { if: "$education_masters", then: true, else:
+  							  	{ $cond: { if: "$education_doctor", then: true, else:
+  							  	  { $cond: { if: "$education_diploma", then: true, else: false } } } } } } } }
+
+        , density: { $cond: { if: "$length_on_platform" { $gt: 0.0 } , then: { $divide: [ "$billed_assignments", { $divide: [ "$length_on_platform", 365 ] } ] }, else: "" } }
+
+}
+
+
+        density: { $cond: { if: {{"worked_on_platform": true },{"$length_on_platform": { $gt: 0.0 } }}, then: { $divide: [ "$billed_assignments", { $divide: [ "$length_on_platform", 365 ] } ] }, else:  } }
+
+
+{ $text: { $search:  "Legal Law  Contract Lawyer"    } }
+, { $text: { $search:  "Finance Banking"    } }
+, { $text: { $search:  "\"Financial Services \""    } }
+, { $text: { $search:  "Engineering Engineer CAD"    } }
+, { $text: { $search:  "\"Product Design\""   } }
+, { $text: { $search:  "\"3D Modeling \""   } }
+, { $text: { $search:  "Architecture Architect"    } }
+, { $text: { $search:  "Recruitment Training"   } }
+, { $text: { $search:  "\"Change Management\""     } }
+, { $text: { $search:  "\"Human Resources\""    } }
+, { $text: { $search:  "\"IT & Networking\""    } }
+, { $text: { $search:  "\"Database Adminstration\""    } }
+, { $text: { $search:  "\"ERP Software\""    } }
+, { $text: { $search:  "\"CRM Software \""    } }
+, { $text: { $search:  "\"Information Security \""    } }
+, { $text: { $search:  "\"Network Adminstration\""    } }
+, { $text: { $search:  "\"System Adminstration\""    } }
+, { $text: { $search:  "\"Network & System Administrations\""    } }
+, { $text: { $search:  "strategy"    } } )
+, { $text: { $search:  "Management Manager"pla    } }
+, { $text: { $search:  "Planning"    } }
+, { $text: { $search:  "Analysis Analytics"    } }
+, { $text: { $search:  "Consulting"   } }
+
+
+
+
+
+
+
+
+
+
  , skills_count: { $cond: { if: {"$skills_list": {$not: { $type: 10 } } } } then: 0, else: {$size: "$skills"} }
 
 
