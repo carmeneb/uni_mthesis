@@ -1,0 +1,1000 @@
+2.58355                    0.41632                    0.00079                    0.01769                   -0.25953
+categories_subgroup_count           experience_years          experiences_count                tests_count     education_tertiarytrue
+0.33035                   -0.08677                    0.28201                    0.17186                    0.38615
+
+> lm(skills ~ worked_on_platform + categories_group_count + categories_subgroup_count + experience_years + experiences_count + tests_count + education_tertiary)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + experience_years + experiences_count +
+tests_count + education_tertiary)
+
+Coefficients:
+(Intercept)     worked_on_platformtrue     categories_group_count  categories_subgroup_count           experience_years
+ 2.4451                     0.8291                    -0.2997                     0.3502                    -0.0836
+experiences_count                tests_count     education_tertiarytrue
+ 0.2955                     0.2113                     0.4030
+
+> lm(skills ~ worked_on_platform + categories_group_count + categories_subgroup_count + experiences_count + tests_count + education_tertiary)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + experiences_count + tests_count +
+education_tertiary)
+
+Coefficients:
+(Intercept)     worked_on_platformtrue     categories_group_count  categories_subgroup_count          experiences_count
+  0.913                      0.863                     -0.318                      0.284                      0.369
+tests_count     education_tertiarytrue
+  0.248                      1.404
+
+> lm(skills ~ worked_on_platform + categories_group_count + categories_subgroup_count + experience_years + tests_count + education_tertiary)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + experience_years + tests_count +
+education_tertiary)
+
+Coefficients:
+(Intercept)     worked_on_platformtrue     categories_group_count  categories_subgroup_count           experience_years
+ 2.6929                     0.8813                    -0.3198                     0.3740                    -0.0428
+tests_count     education_tertiarytrue
+ 0.2277                     0.4499
+
+> lm(skills ~ worked_on_platform + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years )
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Coefficients:
+(Intercept)     worked_on_platformtrue     categories_group_count  categories_subgroup_count                tests_count
+ 2.4451                     0.8291                    -0.2997                     0.3502                     0.2113
+education_tertiarytrue          experiences_count           experience_years
+ 0.4030                     0.2955                    -0.0836
+
+> lm(billed_assignments ~ categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years)
+
+Call:
+lm(formula = billed_assignments ~ categories_group_count + categories_subgroup_count +
+tests_count + education_tertiary + experiences_count + experience_years)
+
+Coefficients:
+(Intercept)     categories_group_count  categories_subgroup_count                tests_count     education_tertiarytrue
+-3.0351                    -1.5480                     0.9057                     1.4338                     0.6710
+experiences_count           experience_years
+ 0.3669                     0.0801
+
+> lm(billed_assignments ~ categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years + skills)
+
+Call:
+lm(formula = billed_assignments ~ categories_group_count + categories_subgroup_count +
+tests_count + education_tertiary + experiences_count + experience_years +
+skills)
+
+Coefficients:
+(Intercept)     categories_group_count  categories_subgroup_count                tests_count     education_tertiarytrue
+ -4.272                     -1.375                      0.706                      1.300                      0.442
+experiences_count           experience_years                     skills
+  0.211                      0.121                      0.515
+
+> lm(skills ~ billed_assignments)
+
+Call:
+lm(formula = skills ~ billed_assignments)
+
+Coefficients:
+(Intercept)  billed_assignments
+3.6357              0.0646
+
+> lm(skills ~ worked_on_platform)
+
+Call:
+lm(formula = skills ~ worked_on_platform)
+
+Coefficients:
+(Intercept)  worked_on_platformtrue
+3.08                    2.88
+
+> skills_simple.lm = lm(skills ~ worked_on_platform)
+> skills_simple.lm
+
+Call:
+lm(formula = skills ~ worked_on_platform)
+
+Coefficients:
+(Intercept)  worked_on_platformtrue
+3.08                    2.88
+
+> skills.lm = lm(skills ~ worked_on_platform + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years )
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-24.29  -2.70  -0.47   2.25  85.95
+
+Coefficients:
+        Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                2.44511    0.03359    72.8 <0.0000000000000002 ***
+worked_on_platformtrue     0.82912    0.02786    29.8 <0.0000000000000002 ***
+categories_group_count    -0.29974    0.01341   -22.4 <0.0000000000000002 ***
+categories_subgroup_count  0.35016    0.00666    52.6 <0.0000000000000002 ***
+tests_count                0.21128    0.00441    47.9 <0.0000000000000002 ***
+education_tertiarytrue     0.40301    0.02705    14.9 <0.0000000000000002 ***
+experiences_count          0.29554    0.00640    46.2 <0.0000000000000002 ***
+experience_years          -0.08361    0.00234   -35.7 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.8 on 112762 degrees of freedom
+(55593 observations deleted due to missingness)
+Multiple R-squared:  0.148,	Adjusted R-squared:  0.148
+F-statistic: 2.81e+03 on 7 and 112762 DF,  p-value: <0.0000000000000002
+
+> View(profiles)
+> experience_years[is.na(experience_years)] <- 0
+> View(profiles)
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-24.29  -2.70  -0.47   2.25  85.95
+
+Coefficients:
+        Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                2.44511    0.03359    72.8 <0.0000000000000002 ***
+worked_on_platformtrue     0.82912    0.02786    29.8 <0.0000000000000002 ***
+categories_group_count    -0.29974    0.01341   -22.4 <0.0000000000000002 ***
+categories_subgroup_count  0.35016    0.00666    52.6 <0.0000000000000002 ***
+tests_count                0.21128    0.00441    47.9 <0.0000000000000002 ***
+education_tertiarytrue     0.40301    0.02705    14.9 <0.0000000000000002 ***
+experiences_count          0.29554    0.00640    46.2 <0.0000000000000002 ***
+experience_years          -0.08361    0.00234   -35.7 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.8 on 112762 degrees of freedom
+(55593 observations deleted due to missingness)
+Multiple R-squared:  0.148,	Adjusted R-squared:  0.148
+F-statistic: 2.81e+03 on 7 and 112762 DF,  p-value: <0.0000000000000002
+
+> summary(experience_years)
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+0       0       4       5       8      66
+> stat.desc(experience_years)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+168363.000    55593.000        0.000        0.000       65.789       65.789   832288.384        3.748        4.943        0.014        0.027
+var      std.dev     coef.var
+31.423        5.606        1.134
+> stat.desc(experience_years)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+168363.000    55593.000        0.000        0.000       65.789       65.789   832288.384        3.748        4.943        0.014        0.027
+var      std.dev     coef.var
+31.423        5.606        1.134
+> experience_years[is.na(experience_years)] <- "0"
+> stat.desc(experience_years)
+nbr.val nbr.null   nbr.na      min      max    range      sum   median     mean  SE.mean  CI.mean      var  std.dev coef.var
+NA       NA       NA       NA       NA       NA       NA       NA       NA       NA       NA       NA       NA       NA
+> experience_years[is.na(experience_years)] <- "0"
+> View(profiles)
+> stat.desc(experience_years)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+112770.000        0.000    55593.000        0.079       65.789       65.710   832288.384        6.082        7.380        0.016        0.031
+var      std.dev     coef.var
+28.928        5.379        0.729
+> profiles$experience_years[is.na(profiles$experience_years)] <- c(0)
+> stat.desc(experience_years)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+112770.000        0.000    55593.000        0.079       65.789       65.710   832288.384        6.082        7.380        0.016        0.031
+var      std.dev     coef.var
+28.928        5.379        0.729
+> stat.desc(profiles$experience_years)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+168363.000    55593.000        0.000        0.000       65.789       65.789   832288.384        3.748        4.943        0.014        0.027
+var      std.dev     coef.var
+31.423        5.606        1.134
+> stat.desc(experience_years)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+112770.000        0.000    55593.000        0.079       65.789       65.710   832288.384        6.082        7.380        0.016        0.031
+var      std.dev     coef.var
+28.928        5.379        0.729
+> experience_years <- profiles$experience_years
+> stat.desc(experience_years)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+168363.000    55593.000        0.000        0.000       65.789       65.789   832288.384        3.748        4.943        0.014        0.027
+var      std.dev     coef.var
+31.423        5.606        1.134
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-24.29  -2.70  -0.47   2.25  85.95
+
+Coefficients:
+        Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                2.44511    0.03359    72.8 <0.0000000000000002 ***
+worked_on_platformtrue     0.82912    0.02786    29.8 <0.0000000000000002 ***
+categories_group_count    -0.29974    0.01341   -22.4 <0.0000000000000002 ***
+categories_subgroup_count  0.35016    0.00666    52.6 <0.0000000000000002 ***
+tests_count                0.21128    0.00441    47.9 <0.0000000000000002 ***
+education_tertiarytrue     0.40301    0.02705    14.9 <0.0000000000000002 ***
+experiences_count          0.29554    0.00640    46.2 <0.0000000000000002 ***
+experience_years          -0.08361    0.00234   -35.7 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.8 on 112762 degrees of freedom
+(55593 observations deleted due to missingness)
+Multiple R-squared:  0.148,	Adjusted R-squared:  0.148
+F-statistic: 2.81e+03 on 7 and 112762 DF,  p-value: <0.0000000000000002
+
+> skills.lm = lm(skills ~ worked_on_platform + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years )
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-35.64  -2.23  -0.91   1.91  85.09
+
+Coefficients:
+        Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                0.94666    0.01958    48.4 <0.0000000000000002 ***
+worked_on_platformtrue     0.88539    0.02345    37.8 <0.0000000000000002 ***
+categories_group_count    -0.31495    0.01023   -30.8 <0.0000000000000002 ***
+categories_subgroup_count  0.28239    0.00509    55.4 <0.0000000000000002 ***
+tests_count                0.25355    0.00380    66.7 <0.0000000000000002 ***
+education_tertiarytrue     1.45403    0.01932    75.3 <0.0000000000000002 ***
+experiences_count          0.41470    0.00570    72.8 <0.0000000000000002 ***
+experience_years          -0.03108    0.00203   -15.3 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168355 degrees of freedom
+Multiple R-squared:  0.246,	Adjusted R-squared:  0.246
+F-statistic: 7.87e+03 on 7 and 168355 DF,  p-value: <0.0000000000000002
+
+> skills.lm = lm(skills ~ worked_on_platform + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years + education_bachelors + education_diploma + education_doctor + education_masters )
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years + education_bachelors +
+education_diploma + education_doctor + education_masters)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-35.49  -2.23  -0.91   1.91  85.06
+
+Coefficients:
+        Estimate Std. Error t value             Pr(>|t|)
+(Intercept)                0.94328    0.01963   48.05 < 0.0000000000000002 ***
+worked_on_platformtrue     0.89556    0.02360   37.95 < 0.0000000000000002 ***
+categories_group_count    -0.31459    0.01023  -30.75 < 0.0000000000000002 ***
+categories_subgroup_count  0.28246    0.00509   55.46 < 0.0000000000000002 ***
+tests_count                0.25363    0.00381   66.61 < 0.0000000000000002 ***
+education_tertiarytrue     1.16467    0.06759   17.23 < 0.0000000000000002 ***
+experiences_count          0.41279    0.00571   72.31 < 0.0000000000000002 ***
+experience_years          -0.03023    0.00204  -14.85 < 0.0000000000000002 ***
+education_bachelorstrue    0.31201    0.06557    4.76             0.000002 ***
+education_diplomatrue     -0.00819    0.06674   -0.12                0.902
+education_doctortrue      -0.26699    0.12705   -2.10                0.036 *
+education_masterstrue     -0.05873    0.04963   -1.18                0.237
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168351 degrees of freedom
+Multiple R-squared:  0.247,	Adjusted R-squared:  0.247
+F-statistic: 5.01e+03 on 11 and 168351 DF,  p-value: <0.0000000000000002
+
+> skills.lm = lm(skills ~ worked_on_platform + billed_assignments + assignments_fp_count + assignments_hr_count + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years )
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + billed_assignments +
+assignments_fp_count + assignments_hr_count + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-37.97  -2.24  -0.95   1.92  83.49
+
+Coefficients:
+        Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                0.99865    0.01949    51.2 <0.0000000000000002 ***
+worked_on_platformtrue     0.63712    0.02399    26.6 <0.0000000000000002 ***
+billed_assignments         0.02337    0.00225    10.4 <0.0000000000000002 ***
+assignments_fp_count      -0.02638    0.00259   -10.2 <0.0000000000000002 ***
+assignments_hr_count       0.03568    0.00274    13.0 <0.0000000000000002 ***
+categories_group_count    -0.29464    0.01018   -28.9 <0.0000000000000002 ***
+categories_subgroup_count  0.27179    0.00507    53.6 <0.0000000000000002 ***
+tests_count                0.22362    0.00385    58.1 <0.0000000000000002 ***
+education_tertiarytrue     1.46710    0.01921    76.4 <0.0000000000000002 ***
+experiences_count          0.40316    0.00567    71.1 <0.0000000000000002 ***
+experience_years          -0.03102    0.00202   -15.4 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168352 degrees of freedom
+Multiple R-squared:  0.256,	Adjusted R-squared:  0.255
+F-statistic: 5.78e+03 on 10 and 168352 DF,  p-value: <0.0000000000000002
+
+> skills.lm = lm(skills ~ worked_on_platform + billed_assignments + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years )
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + billed_assignments +
+categories_group_count + categories_subgroup_count + tests_count +
+education_tertiary + experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-45.60  -2.23  -0.95   1.91  84.55
+
+Coefficients:
+         Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                0.977082   0.019516    50.1 <0.0000000000000002 ***
+worked_on_platformtrue     0.692403   0.023950    28.9 <0.0000000000000002 ***
+billed_assignments         0.023926   0.000654    36.6 <0.0000000000000002 ***
+categories_group_count    -0.295705   0.010203   -29.0 <0.0000000000000002 ***
+categories_subgroup_count  0.273282   0.005079    53.8 <0.0000000000000002 ***
+tests_count                0.232919   0.003830    60.8 <0.0000000000000002 ***
+education_tertiarytrue     1.461885   0.019246    76.0 <0.0000000000000002 ***
+experiences_count          0.409016   0.005677    72.0 <0.0000000000000002 ***
+experience_years          -0.031223   0.002021   -15.4 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168354 degrees of freedom
+Multiple R-squared:  0.252,	Adjusted R-squared:  0.252
+F-statistic: 7.1e+03 on 8 and 168354 DF,  p-value: <0.0000000000000002
+
+> View(profiles)
+> skills.lm = lm(skills ~ worked_on_platform + billed_assignments + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years + total_hours)
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + billed_assignments +
+categories_group_count + categories_subgroup_count + tests_count +
+education_tertiary + experiences_count + experience_years +
+total_hours)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-43.04  -2.24  -0.95   1.91  82.84
+
+Coefficients:
+           Estimate  Std. Error t value            Pr(>|t|)
+(Intercept)                0.99182824  0.01950768    50.8 <0.0000000000000002 ***
+worked_on_platformtrue     0.61155323  0.02427366    25.2 <0.0000000000000002 ***
+billed_assignments         0.01900057  0.00069957    27.2 <0.0000000000000002 ***
+categories_group_count    -0.29414197  0.01019140   -28.9 <0.0000000000000002 ***
+categories_subgroup_count  0.27210471  0.00507364    53.6 <0.0000000000000002 ***
+tests_count                0.22635275  0.00384055    58.9 <0.0000000000000002 ***
+education_tertiarytrue     1.46805876  0.01922614    76.4 <0.0000000000000002 ***
+experiences_count          0.40501061  0.00567395    71.4 <0.0000000000000002 ***
+experience_years          -0.03164789  0.00201870   -15.7 <0.0000000000000002 ***
+total_hours                0.00015674  0.00000798    19.6 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168353 degrees of freedom
+Multiple R-squared:  0.254,	Adjusted R-squared:  0.254
+F-statistic: 6.37e+03 on 9 and 168353 DF,  p-value: <0.0000000000000002
+
+> skills.lm = lm(skills ~ worked_on_platform + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years)
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-35.64  -2.23  -0.91   1.91  85.09
+
+Coefficients:
+        Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                0.94666    0.01958    48.4 <0.0000000000000002 ***
+worked_on_platformtrue     0.88539    0.02345    37.8 <0.0000000000000002 ***
+categories_group_count    -0.31495    0.01023   -30.8 <0.0000000000000002 ***
+categories_subgroup_count  0.28239    0.00509    55.4 <0.0000000000000002 ***
+tests_count                0.25355    0.00380    66.7 <0.0000000000000002 ***
+education_tertiarytrue     1.45403    0.01932    75.3 <0.0000000000000002 ***
+experiences_count          0.41470    0.00570    72.8 <0.0000000000000002 ***
+experience_years          -0.03108    0.00203   -15.3 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168355 degrees of freedom
+Multiple R-squared:  0.246,	Adjusted R-squared:  0.246
+F-statistic: 7.87e+03 on 7 and 168355 DF,  p-value: <0.0000000000000002
+
+> pairs(skills.lm)
+Error in as.data.frame.default(x) :
+cannot coerce class ""lm"" to a data.frame
+> pairs(profiles)
+
+> skills.res = resid(skills.lm)
+> skills_fitted <- fitted(skills_lm)
+Error in fitted(skills_lm) : object 'skills_lm' not found
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-35.64  -2.23  -0.91   1.91  85.09
+
+Coefficients:
+        Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                0.94666    0.01958    48.4 <0.0000000000000002 ***
+worked_on_platformtrue     0.88539    0.02345    37.8 <0.0000000000000002 ***
+categories_group_count    -0.31495    0.01023   -30.8 <0.0000000000000002 ***
+categories_subgroup_count  0.28239    0.00509    55.4 <0.0000000000000002 ***
+tests_count                0.25355    0.00380    66.7 <0.0000000000000002 ***
+education_tertiarytrue     1.45403    0.01932    75.3 <0.0000000000000002 ***
+experiences_count          0.41470    0.00570    72.8 <0.0000000000000002 ***
+experience_years          -0.03108    0.00203   -15.3 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168355 degrees of freedom
+Multiple R-squared:  0.246,	Adjusted R-squared:  0.246
+F-statistic: 7.87e+03 on 7 and 168355 DF,  p-value: <0.0000000000000002
+
+> skills_fitted <- fitted(skills.lm)
+> plot(skills_fitted, skills_resid, xlab = "Fitted values",
++      + ylab = "Residuals", type = "n",
+Error: unexpected '=' in:
+"plot(skills_fitted, skills_resid, xlab = "Fitted values",
++ ylab ="
+>      + ylim = max(abs(skills.res)) * c(-1, 1))
+Error: unexpected ')' in "     + ylim = max(abs(skills.res)) * c(-1, 1))"
+> plot(skills_fitted, skills.res, xlab = "Fitted values",
++      + ylab = "Residuals", type = "n",
+Error: unexpected '=' in:
+"plot(skills_fitted, skills.res, xlab = "Fitted values",
++ ylab ="
+>      + ylim = max(abs(skills.res)) * c(-1, 1))
+Error: unexpected ')' in "     + ylim = max(abs(skills.res)) * c(-1, 1))"
+> str(skills_fitted)
+Named num [1:168363] 0.947 3.785 6.407 5.49 5.647 ...
+- attr(*, "names")= chr [1:168363] "1" "2" "3" "4" ...
+> rename(skills.res, skills_resid)
+Error in UseMethod("rename_") :
+no applicable method for 'rename_' applied to an object of class "c('double', 'numeric')"
+> str(skills.res)
+Named num [1:168363] -0.947 -1.785 -5.407 6.51 4.353 ...
+- attr(*, "names")= chr [1:168363] "1" "2" "3" "4" ...
+> skills_resid = resid(skills.lm)
+> plot(skills_fitted, skills_resid, xlab("Fitted Values"), ylab("Residuals") )
+Error in plot.window(...) : invalid 'xlim' value
+In addition: Warning messages:
+1: In .HTMLsearch(query) : Unrecognized search field: title
+2: In .HTMLsearch(query) : Unrecognized search field: keyword
+3: In .HTMLsearch(query) : Unrecognized search field: alias
+> plot(skills_fitted, skills_resid, xlab = "Fitted Values", ylab = "Residuals", type = "o", main = Residual Plot )
+Error: unexpected symbol in "plot(skills_fitted, skills_resid, xlab = "Fitted Values", ylab = "Residuals", type = "o", main = Residual Plot"
+In addition: Warning messages:
+1: In .HTMLsearch(query) : Unrecognized search field: title
+2: In .HTMLsearch(query) : Unrecognized search field: keyword
+3: In .HTMLsearch(query) : Unrecognized search field: alias
+> hist(skills_resid)
+> plot(skills_resid)
+> skills_RESET.lm = lm(skills ~ worked_on_platform + billed_assignments + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years + skills_fitted)
+> summary(skills_RESET.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + billed_assignments +
+categories_group_count + categories_subgroup_count + tests_count +
+education_tertiary + experiences_count + experience_years +
+skills_fitted)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-45.60  -2.23  -0.95   1.91  84.55
+
+Coefficients: (1 not defined because of singularities)
+         Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                0.977082   0.019516    50.1 <0.0000000000000002 ***
+worked_on_platformtrue     0.692403   0.023950    28.9 <0.0000000000000002 ***
+billed_assignments         0.023926   0.000654    36.6 <0.0000000000000002 ***
+categories_group_count    -0.295705   0.010203   -29.0 <0.0000000000000002 ***
+categories_subgroup_count  0.273282   0.005079    53.8 <0.0000000000000002 ***
+tests_count                0.232919   0.003830    60.8 <0.0000000000000002 ***
+education_tertiarytrue     1.461885   0.019246    76.0 <0.0000000000000002 ***
+experiences_count          0.409016   0.005677    72.0 <0.0000000000000002 ***
+experience_years          -0.031223   0.002021   -15.4 <0.0000000000000002 ***
+skills_fitted                    NA         NA      NA                  NA
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168354 degrees of freedom
+Multiple R-squared:  0.252,	Adjusted R-squared:  0.252
+F-statistic: 7.1e+03 on 8 and 168354 DF,  p-value: <0.0000000000000002
+
+> ramsey(skills.lm)
+Error: could not find function "ramsey"
+> install.packages("lmtest")
+also installing the dependency ‘zoo’
+
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+               Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0 58  864k   58  504k    0     0   189k      0  0:00:04  0:00:02  0:00:02  189k100  864k  100  864k    0     0   296k      0  0:00:02  0:00:02 --:--:--  296k
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+               Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0 38  264k   38  100k    0     0  59646      0  0:00:04  0:00:01  0:00:03 59636100  264k  100  264k    0     0   137k      0  0:00:01  0:00:01 --:--:--  137k
+
+The downloaded binary packages are in
+/var/folders/r9/mhfr0k_55xg8q5q9_8c2_76w0000gn/T//RtmpqzLbGF/downloaded_packages
+> load("~/Data/Upwork CSV/id_billed_assignments.csv")
+Error: bad restore file magic number (file may be corrupted) -- no data loaded
+In addition: Warning message:
+file ‘id_billed_assignments.csv’ has magic number 'profi'
+Use of save versions prior to 2 is deprecated
+> billed_assignments_file <- read.csv("billed_assignments.csv", header = TRUE, sep = ",")
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+cannot open file 'billed_assignments.csv': No such file or directory
+> billed_assignments_file <- read.csv("id_billed_assignments.csv", header = TRUE, sep = ",")
+> stat.desc(billed_assignments_file$billed_assignments)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+43098.00         0.00         0.00         1.00      1031.00      1030.00    488175.00         3.00        11.33         0.13         0.25
+var      std.dev     coef.var
+702.25        26.50         2.34
+> experience_years_all <- read.csv("id_experience_all.csv", header = TRUE, sep = ",")
+> stat.desc(experience_years_all$experiences_count)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+168363.0000   55593.0000       0.0000       0.0000      94.0000      94.0000  279549.0000       1.0000       1.6604       0.0049       0.0096
+var      std.dev     coef.var
+4.0107       2.0027       1.2061
+> experience_count_worked <- read.csv("id_experience_worked.csv", header = TRUE, sep = ",")
+> stat.desc(experience_count_worked$experiences_count)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+43180.000     4556.000        0.000        0.000       94.000       94.000   113916.000        2.000        2.638        0.012        0.023
+var      std.dev     coef.var
+6.019        2.453        0.930
+> stat.desc(experience_count_worked$experience_length)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+43180.000     4556.000        0.000        0.000       54.534       54.534   327969.882        6.748        7.595        0.027        0.054
+var      std.dev     coef.var
+32.341        5.687        0.749
+> experience_count_not_worked <- read.csv("id_experience_not_worked.csv", header = TRUE, sep = ",")
+> stat.desc(experience_count_not_worked$experiences_count)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+125183.0000   51037.0000       0.0000       0.0000      51.0000      51.0000  165633.0000       1.0000       1.3231       0.0048       0.0094
+var      std.dev     coef.var
+2.8744       1.6954       1.2814
+> stat.desc(experience_count_not_worked$experiences_length)
+Error in `[.data.frame`(x, i) : undefined columns selected
+> stat.desc(experience_count_not_worked$experience_length)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+125183.000    51037.000        0.000        0.000       65.789       65.789   504318.501        2.499        4.029        0.015        0.029
+var      std.dev     coef.var
+27.844        5.277        1.310
+> tests_count_all <- read.csv("id_tests_count_all.csv", header = TRUE, sep = ",")
+> stat.desc(tests_count_all$tests_count)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+168363.0000   58981.0000       0.0000       0.0000      67.0000      67.0000  365701.0000       1.0000       2.1721       0.0068       0.0133
+var      std.dev     coef.var
+7.7903       2.7911       1.2850
+> tests_count_worked <- read.csv("id_tests_count_worked.csv", header = TRUE, sep = ",")
+> stat.desc(tests_count_worked$tests_count)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+43180.000     2977.000        0.000        0.000       67.000       67.000   194527.000        4.000        4.505        0.017        0.034
+var      std.dev     coef.var
+13.011        3.607        0.801
+> tests_count_not_worked <- read.csv("id_tests_count_not_worked.csv", header = TRUE, sep = ",")
+> stat.desc(tests_count_not_worked$tests_count)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+125183.0000   56004.0000       0.0000       0.0000      41.0000      41.0000  171174.0000       1.0000       1.3674       0.0053       0.0103
+var      std.dev     coef.var
+3.4645       1.8613       1.3612
+> skills.lm
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Coefficients:
+(Intercept)     worked_on_platformtrue     categories_group_count  categories_subgroup_count                tests_count
+ 0.9467                     0.8854                    -0.3150                     0.2824                     0.2536
+education_tertiarytrue          experiences_count           experience_years
+ 1.4540                     0.4147                    -0.0311
+
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-35.64  -2.23  -0.91   1.91  85.09
+
+Coefficients:
+        Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                0.94666    0.01958    48.4 <0.0000000000000002 ***
+worked_on_platformtrue     0.88539    0.02345    37.8 <0.0000000000000002 ***
+categories_group_count    -0.31495    0.01023   -30.8 <0.0000000000000002 ***
+categories_subgroup_count  0.28239    0.00509    55.4 <0.0000000000000002 ***
+tests_count                0.25355    0.00380    66.7 <0.0000000000000002 ***
+education_tertiarytrue     1.45403    0.01932    75.3 <0.0000000000000002 ***
+experiences_count          0.41470    0.00570    72.8 <0.0000000000000002 ***
+experience_years          -0.03108    0.00203   -15.3 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168355 degrees of freedom
+Multiple R-squared:  0.246,	Adjusted R-squared:  0.246
+F-statistic: 7.87e+03 on 7 and 168355 DF,  p-value: <0.0000000000000002
+
+> library("lmtest", lib.loc="/Library/Frameworks/R.framework/Versions/3.2/Resources/library")
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+as.Date, as.Date.numeric
+
+> reset(skills.lm)
+
+RESET test
+
+data:  skills.lm
+RESET = 600, df1 = 2, df2 = 200000, p-value <0.0000000000000002
+
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + categories_group_count +
+categories_subgroup_count + tests_count + education_tertiary +
+experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-35.64  -2.23  -0.91   1.91  85.09
+
+Coefficients:
+        Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                0.94666    0.01958    48.4 <0.0000000000000002 ***
+worked_on_platformtrue     0.88539    0.02345    37.8 <0.0000000000000002 ***
+categories_group_count    -0.31495    0.01023   -30.8 <0.0000000000000002 ***
+categories_subgroup_count  0.28239    0.00509    55.4 <0.0000000000000002 ***
+tests_count                0.25355    0.00380    66.7 <0.0000000000000002 ***
+education_tertiarytrue     1.45403    0.01932    75.3 <0.0000000000000002 ***
+experiences_count          0.41470    0.00570    72.8 <0.0000000000000002 ***
+experience_years          -0.03108    0.00203   -15.3 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168355 degrees of freedom
+Multiple R-squared:  0.246,	Adjusted R-squared:  0.246
+F-statistic: 7.87e+03 on 7 and 168355 DF,  p-value: <0.0000000000000002
+
+> reset(skills.lm)
+
+RESET test
+
+data:  skills.lm
+RESET = 600, df1 = 2, df2 = 200000, p-value <0.0000000000000002
+
+> skills.lm = lm(skills ~ worked_on_platform + billed_assignments + categories_group_count + categories_subgroup_count + tests_count + education_tertiary + experiences_count + experience_years)
+> summary(skills.lm)
+
+Call:
+lm(formula = skills ~ worked_on_platform + billed_assignments +
+categories_group_count + categories_subgroup_count + tests_count +
+education_tertiary + experiences_count + experience_years)
+
+Residuals:
+Min     1Q Median     3Q    Max
+-45.60  -2.23  -0.95   1.91  84.55
+
+Coefficients:
+         Estimate Std. Error t value            Pr(>|t|)
+(Intercept)                0.977082   0.019516    50.1 <0.0000000000000002 ***
+worked_on_platformtrue     0.692403   0.023950    28.9 <0.0000000000000002 ***
+billed_assignments         0.023926   0.000654    36.6 <0.0000000000000002 ***
+categories_group_count    -0.295705   0.010203   -29.0 <0.0000000000000002 ***
+categories_subgroup_count  0.273282   0.005079    53.8 <0.0000000000000002 ***
+tests_count                0.232919   0.003830    60.8 <0.0000000000000002 ***
+education_tertiarytrue     1.461885   0.019246    76.0 <0.0000000000000002 ***
+experiences_count          0.409016   0.005677    72.0 <0.0000000000000002 ***
+experience_years          -0.031223   0.002021   -15.4 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.5 on 168354 degrees of freedom
+Multiple R-squared:  0.252,	Adjusted R-squared:  0.252
+F-statistic: 7.1e+03 on 8 and 168354 DF,  p-value: <0.0000000000000002
+
+> reset(skills.lm)
+
+RESET test
+
+data:  skills.lm
+RESET = 1000, df1 = 2, df2 = 200000, p-value <0.0000000000000002
+
+> skills_fitted <- fitted(skills.lm)
+> skills_resid <- resid(skills.lm)
+> plot(skills_fitted)
+> plot(skills_resid)
+> savehistory("~/Data/Upwork CSV/Untitled.Rhistory")
+> save.image("~/Data/Upwork CSV/Untitled.RData")
+> job_titles <- jobs$job_title
+> review_job_titles <- paste(job_titles, collapse)
+Error in paste(job_titles, collapse) :
+cannot coerce type 'closure' to vector of type 'character'
+> review_job_titles <- paste(jobs$job_title, collapse = "")
+> library("tm", lib.loc="/Library/Frameworks/R.framework/Versions/3.2/Resources/library")
+Loading required package: NLP
+
+Attaching package: ‘NLP’
+
+The following object is masked from ‘package:ggplot2’:
+
+annotate
+
+> review_source <- VectorSource(review_job_titles)
+> all_job_titles <- tm_map(all_job_titles, content_transformer(tolower))
+Error in tm_map(all_job_titles, content_transformer(tolower)) :
+object 'all_job_titles' not found
+> all_job_titles <- Corpus(review_source)
+> all_job_titles <- tm_map(all_job_titles, content_transformer(tolower))
+> all_job_titles <- tm_map(all_job_titles, removePunctuation)
+> all_job_titles <- tm_map(all_job_titles, stripWhitespace)
+> all_job_titles <- tm_map(all_job_titles, removeWords, stopwords (kind = "en")  )
+> job_titles_dtm <- DocumentTermMatrix(all_job_titles)
+> job_titles_dtm2 <- as.matrix(job_titles_dtm)
+> job_titles_frequency <- colSums(dtm2)
+Error in is.data.frame(x) : object 'dtm2' not found
+> job_titles_frequency <- colSums(job_titles_dtm2)
+> job_titles_frequency <- sort(job_titles_frequency, decreasing = TRUE)
+> head(job_titles_frequency)
+data     entry  research assistant    needed       web
+21838     20323     13236     12284     11182      9515
+> sum(jobs$total_charge)
+[1] 202538163
+> describe(jobs$total_charge)
+vars      n mean   sd median trimmed mad min    max  range skew kurtosis  se
+1    1 452142  448 2181     50     107  64   0 178942 178942   19      708 3.2
+Warning messages:
+1: In .HTMLsearch(query) : Unrecognized search field: title
+2: In .HTMLsearch(query) : Unrecognized search field: keyword
+3: In .HTMLsearch(query) : Unrecognized search field: alias
+> fp_charge <- read.csv("fp_charge_days.csv", header = TRUE, sep = ",")
+> sum(fp_charge$total_charge)
+[1] 19045889
+> count(fp_charge$total_charge)
+Error in UseMethod("group_by_") :
+no applicable method for 'group_by_' applied to an object of class "c('double', 'numeric')"
+> count(fp_charge$X_id)
+Error in UseMethod("group_by_") :
+no applicable method for 'group_by_' applied to an object of class "factor"
+> stats.desc(fp_charge$total_charge)
+Error: could not find function "stats.desc"
+> stat.desc(fp_charge$total_charge)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+182088.0       3328.0          0.0          0.0      33937.9      33937.9   19045888.8         30.0        104.6          1.1          2.1
+var      std.dev     coef.var
+216452.8        465.2          4.4
+> stat.desc(jobs$total_charge)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+452142.0      12973.0          0.0          0.0     178942.2     178942.2  202538163.4         50.0        448.0          3.2          6.4
+var      std.dev     coef.var
+4757140.5       2181.1          4.9
+> hr_charge <- read.csv("hr_charge_days.csv", header = TRUE, sep = ",")
+>
+>
+>
+> stats.desc(hr_charge$total_charge)
+Error: could not find function "stats.desc"
+> stat.desc(hr_charge$total_charge)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+270054.0       9645.0          0.0          0.0     178942.2     178942.2  183492274.6         77.9        679.5          5.3         10.5
+var      std.dev     coef.var
+7685690.4       2772.3          4.1
+> all_charge <- read.csv("charge_days_all.csv", header = TRUE, sep = ",")
+> stat.desc(all_charge$total_charge)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+439169.0          0.0          0.0          1.0     178942.2     178941.2  202538163.4         51.1        461.2          3.3          6.5
+var      std.dev     coef.var
+4891563.6       2211.7          4.8
+> all_charge <- read.csv("charge_days_all.csv", header = TRUE, sep = ",")
+> stat.desc(all_charge$daily_rate)
+nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+439169.00000       0.00000       0.00000       0.00059   95906.43000   95906.42941 3232235.93880       2.26797       7.35989       0.22636
+CI.mean.0.95           var       std.dev      coef.var
+0.44365   22501.80627     150.00602      20.38155
+> hr_charge <- read.csv("charge_days_hr.csv", header = TRUE, sep = ",")
+> stat.desc(hr_charge$total_charge)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+163327.0          0.0          0.0          1.0     178942.2     178941.2   94057630.9         74.5        575.9          6.1         11.9
+var      std.dev     coef.var
+6039554.4       2457.6          4.3
+> stats.desc(hr_charge$daily_rate)
+Error: could not find function "stats.desc"
+> stat.desc(hr_charge$daily_rate)
+nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+163327.00000       0.00000       0.00000       0.00068   95906.43000   95906.42932 1132372.17996       2.02000       6.93316       0.59708
+CI.mean.0.95           var       std.dev      coef.var
+1.17026   58226.61537     241.30192      34.80403
+> stat.desc(hr_charge$hourly_rate)
+x
+nbr.val  NA
+nbr.null NA
+nbr.na   NA
+min      NA
+max      NA
+range    NA
+sum      NA
+median   NA
+mean     NA
+SE.mean  NA
+CI.mean  NA
+var      NA
+std.dev  NA
+coef.var NA
+> View(hr_charge)
+> View(hr_charge)
+> hr_charge <- read.csv("charge_days_hr.csv", header = TRUE, sep = ",")
+> stat.desc(hr_charge$hourly_rate)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+160236.0000       0.0000    3091.0000       0.0099   10358.8200   10358.8101 1032555.7971       4.1144       6.4440       0.0975       0.1910
+var      std.dev     coef.var
+1522.3235      39.0170       6.0548
+> fp_charge <- read.csv("charge_days_fp.csv", header = TRUE, sep = ",")
+> stat.desc(fp_charge$daily_rate)
+Error in `[.data.frame`(x, i) : undefined columns selected
+> fp_charge <- read.csv("charge_days_fp.csv", header = TRUE, sep = ",")
+> stat.desc(fp_charge$daily_rate)
+nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+178760.00000       0.00000       0.00000       0.00059    4901.00000    4900.99941 1289412.54930       2.25806       7.21309       0.06964
+CI.mean.0.95           var       std.dev      coef.var
+0.13648     866.82388      29.44187       4.08173
+> stat.desc(fp_charge$total_charge)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+178760.0          0.0          0.0          1.0      33937.9      33936.9   19045888.8         30.0        106.5          1.1          2.2
+var      std.dev     coef.var
+220275.1        469.3          4.4
+> stat.desc(all_charge$daily_rate)
+nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+439169.00000       0.00000       0.00000       0.00059   95906.43000   95906.42941 3232235.93880       2.26797       7.35989       0.22636
+CI.mean.0.95           var       std.dev      coef.var
+0.44365   22501.80627     150.00602      20.38155
+> str(hr_charge)
+'data.frame':	163327 obs. of  6 variables:
+$ X_id        : Factor w/ 163327 levels "562a3f0bbe34dbd50714168c",..: 2 66658 66808 66917 66929 67115 67117 67121 67148 67157 ...
+$ cal_length  : int  1576 101 65 7 2 1485 101 49 4 145 ...
+$ hours       : num  0 0 0 0 0 0 0 0 0 0 ...
+$ total_charge: num  2150 3.8 168.9 11 40 ...
+$ daily_rate  : num  1.3642 0.0376 2.5991 1.5714 20 ...
+$ hourly_rate : num  NA NA NA NA NA NA NA NA NA NA ...
+> hr_charge <- read.csv("charge_days_hr.csv", header = TRUE, sep = ",")
+> str(hr_charge)
+'data.frame':	260409 obs. of  4 variables:
+$ X_id        : Factor w/ 260409 levels "562a3f0bbe34dbd50714168c",..: 1 2 8 11 4 7 10 18 23 28 ...
+$ cal_length  : int  3012 1576 544 970 2314 105 153 2 184 6 ...
+$ hours       : num  11507 0 596 357 11 ...
+$ total_charge: num  178942 2150 9933 9973 150 ...
+> hr_charge <- read.csv("charge_days_hr.csv", header = TRUE, sep = ",")
+> str(hr_charge)
+'data.frame':	260409 obs. of  6 variables:
+$ X_id        : Factor w/ 260409 levels "562a3f0bbe34dbd50714168c",..: 2 99 263 785 858 860 865 1017 1021 1015 ...
+$ cal_length  : int  1576 1 53 5 2285 315 40 874 11 109 ...
+$ hours       : num  0 0 0 0 0 0 0 0 0 0 ...
+$ total_charge: num  2150 7.78 12.5 4.44 817.23 ...
+$ daily_rate  : num  1.364 7.78 0.236 0.888 0.358 ...
+$ hourly_rate : num  NA NA NA NA NA NA NA NA NA NA ...
+> stat.desc(hr_charge$hourly_rate)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+255902.0000       0.0000    4507.0000       0.0099   31744.9412   31744.9313 1732523.5025       4.4400       6.7703       0.1424       0.2792
+var      std.dev     coef.var
+5191.7661      72.0539      10.6427
+> stat.desc(hr_charge$daily_rate)
+nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+260409.00000       0.00000       0.00000       0.00068   95906.43000   95906.42932 1942823.38950       2.27897       7.46066       0.37874
+CI.mean.0.95           var       std.dev      coef.var
+0.74231   37353.36160     193.27018      25.90523
+> stat.desc(hr_charge$total_charge)
+nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+260409.0          0.0          0.0          1.0     178942.2     178941.2  183492274.6         85.3        704.6          5.5         10.8
+var      std.dev     coef.var
+7952620.5       2820.0          4.0
+> t.test(hours_closed_rev, alternative = c("greater"), mu = 160, paired = FALSE)
+
+One Sample t-test
+
+data:  hours_closed_rev
+t = -30, df = 200000, p-value = 1
+alternative hypothesis: true mean is greater than 160
+95 percent confidence interval:
+124 Inf
+sample estimates:
+mean of x
+126
+
+> t.test(days_closed, alternative = c("greater"), mu = 90, paired = FALSE)
+
+One Sample t-test
+
+data:  days_closed
+t = -5, df = 300000, p-value = 1
+alternative hypothesis: true mean is greater than 90
+95 percent confidence interval:
+88 Inf
+sample estimates:
+mean of x
+88
+
+> t.test(days_closed_hr, alternative = c("greater"), mu = 90, paired = FALSE)
+
+One Sample t-test
+
+data:  days_closed_hr
+t = 40, df = 200000, p-value <0.0000000000000002
+alternative hypothesis: true mean is greater than 90
+95 percent confidence interval:
+106 Inf
+sample estimates:
+mean of x
+107
+
+> t.test(days_closed_fp, alternative = c("greater"), mu = 90, paired = FALSE)
+
+One Sample t-test
+
+data:  days_closed_fp
+t = -60, df = 100000, p-value = 1
+alternative hypothesis: true mean is greater than 90
+95 percent confidence interval:
+66 Inf
+sample estimates:
+mean of x
+66
+
+> t.test(days_closed_hr, alternative = c("greater"), mu = 180, paired = FALSE)
+
+One Sample t-test
+
+data:  days_closed_hr
+t = -200, df = 200000, p-value = 1
+alternative hypothesis: true mean is greater than 180
+95 percent confidence interval:
+106 Inf
+sample estimates:
+mean of x
+107
+
+> savehistory()

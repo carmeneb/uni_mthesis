@@ -1,6 +1,6 @@
 #### New Contract Growth
 
-db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "worked_on_platform": true, "date_last_worked": { $gte: ISODate("2006-01-02T14:00:00.000+0000"), $lt: ISODate("2007-01-02T14:00:00.000+0000") } }).count()
+db.profiles_phl_working.find({ "worked_on_platform": true, "assignments_listed_billed_delta": 0.0 , "date_first_worked": { $type: 9 }, "date_first_worked": { $gte: ISODate("2006-01-02T14:00:00.000+0000"), $lt: ISODate("2007-01-02T14:00:00.000+0000") }  }).count()
 
 #### New Contracts
 
@@ -12,7 +12,7 @@ db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_fir
 
 #### New Fixed Price Contracts
 
-` db.jobs_phl_all.find({ "type": "Hourly", "cal_start_date": { $gte: ISODate("2015-01-02T14:00:00.000+0000"), $lt: ISODate("2016-01-02T14:00:00.000+0000") } }).count() `
+` db.jobs_phl_all.find({ "type": "Fixed", "cal_start_date": { $gte: ISODate("2015-01-02T14:00:00.000+0000"), $lt: ISODate("2016-01-02T14:00:00.000+0000") } }).count() `
 
 #### Open Contracts
 
@@ -25,6 +25,11 @@ db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_fir
 #### Profiles with Open Contracts
 
 ` db.profiles_phl_working.find({ $or: [ { "assignments_hr_end_dates": ISODate("2015-09-30T14:00:00.000+0000") }, { "assignments_fp_end_dates": ISODate("2015-09-30T14:00:00.000+0000") } ] } ).count() `
+
+
+#### Income
+
+
 
 #### Attrition
 
@@ -66,6 +71,16 @@ experience_years: { $cond: { if: { "experience_length": { $gt: 0.0, $lte: 1.0 } 
 #### Job titles
 
 ` db.jobs_phl_all.count() `
+
+db.experience_titles_worked.count()
+
+### Frequent Term search
+
+All Job Titles ` db.jobs_phl_all.find({ $text: { $search: "data entry research assistant web" } } ).count() `
+
+Experience Job Titles ` db.experience_titles_all.find({ $text: { $search: "representative customer service assistant support manager " } } ).count() `
+                      ` db.experience_titles_worked.find({ $text: { $search: "representative customer service assistant support manager " } } ).count() `
+
 
 ### Complex / Professional Term Search
 

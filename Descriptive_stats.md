@@ -41,6 +41,8 @@
   * ```db.profiles.find({ "details.dev_billed_assignments": { $gt: "0" }, "details.dev_country": "Philippines" }).count()```
 
 
+
+
 #### Profiles *with* Assignment Details *or* Total Hours > 0 *with no* Billed Assignments = **65**
 
  * ```db.profiles_phl_ad.find( { "details.dev_billed_assignments": "0" } ).count()```
@@ -117,6 +119,27 @@
 
  db.profiles_phl_working.find({ "date_first_worked": { $gt: ISODate("2006-01-02T14:00:00.000+0000") }, "date_last_worked": { $gte: ISODate("2015-06-02T14:00:00.000+0000"), $lt: ISODate("2016-01-02T14:00:00.000+0000") } }).count() **9563**
 
+\\ worked with details and have first date **34401**
+
+db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "worked_on_platform": true, "date_first_worked": { $gte: ISODate("2006-01-02T14:00:00.000+0000"), $lt: ISODate("2007-01-02T14:00:00.000+0000") } }).count()
+
+\\ worked, with details, have first date and contract still open **1891**
+
+db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "worked_on_platform": true, "details.assignments.fp.job.as_to_full": ISODate("2015-09-30T14:00:00.000+0000"), "details.assignments.hr.job.as_to_full": ISODate("2015-09-30T14:00:00.000+0000") }).count()
+
+\\ profiles with both fp and hr jobs still open **3583**
+
+db.profiles_phl_working.find({  "details.assignments.fp.job.as_to_full": ISODate("2015-09-30T14:00:00.000+0000"), "details.assignments.hr.job.as_to_full": ISODate("2015-09-30T14:00:00.000+0000") }).count()
+
+\\ profiles with either fp or hr jobs open ****
+
+db.profiles_phl_working.find({ $or:[ {"details.assignments.fp.job.as_to_full": ISODate("2015-09-30T14:00:00.000+0000"), "details.assignments.hr.job.as_to_full": ISODate("2015-09-30T14:00:00.000+0000")}] } ).count()
+
+### Profiles with Billed Assignemnts delta = 0, Worked
+
+db.profiles_phl_working.find({ "worked_on_platform": true, "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "details.assignments.hr.job.as_financial_privacy": { $ne: "1" }, "details.assignments.fp.job.as_financial_privacy": { $ne: "1" } }).count()
+
+
 ### Attrition
 
 db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "worked_on_platform": true, "date_last_worked": { $gte: ISODate("2006-01-02T14:00:00.000+0000"), $lt: ISODate("2007-01-02T14:00:00.000+0000") } }).count()
@@ -138,6 +161,83 @@ db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_fir
 db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "worked_on_platform": true, "date_last_worked": { $gte: ISODate("2014-01-02T14:00:00.000+0000"), $lt: ISODate("2015-01-02T14:00:00.000+0000") } }).count()
 
 db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "worked_on_platform": true, "date_last_worked": { $gte: ISODate("2015-01-02T14:00:00.000+0000"), $lt: ISODate("2016-01-02T14:00:00.000+0000") } }).count()
+
+
+## Income
+
+
+
+\\ All Assignments
+
+
+> stat.desc(all_charge$total_charge)
+     nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+    439169.0          0.0          0.0          1.0     178942.2     178941.2  202538163.4         51.1        461.2          3.3          6.5
+         var      std.dev     coef.var
+   4891563.6       2211.7          4.8
+
+> describe(jobs$total_charge)
+  vars      n mean   sd median trimmed mad min    max  range skew kurtosis  se
+1    1 452142  448 2181     50     107  64   0 178942 178942   19      708 3.2
+
+> stat.desc(jobs$total_charge)
+     nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+    452142.0      12973.0          0.0          0.0     178942.2     178942.2  202538163.4         50.0        448.0          3.2          6.4
+         var      std.dev     coef.var
+   4757140.5       2181.1          4.9
+
+    **daily_rate**
+
+    > stat.desc(all_charge$daily_rate)
+      nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+ 439169.00000       0.00000       0.00000       0.00059   95906.43000   95906.42941 3232235.93880       2.26797       7.35989       0.22636
+ CI.mean.0.95           var       std.dev      coef.var
+      0.44365   22501.80627     150.00602      20.38155
+
+
+
+
+\\ FP Assignments
+
+db.jobs_phl_all.find({ "total_charge": { $gt: 0.0 }, "type": "Fixed", "cal_start_date": { $gte: ISODate("2015-01-02T14:00:00.000+0000"), $lt: ISODate("2016-01-02T14:00:00.000+0000") } }).count() ****
+
+> stat.desc(fp_charge$total_charge)
+
+    nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+   178760.0          0.0          0.0          1.0      33937.9      33936.9   19045888.8         30.0        106.5          1.1          2.2
+        var      std.dev     coef.var
+   220275.1        469.3          4.4
+
+   > stat.desc(fp_charge$daily_rate)
+         nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+    178760.00000       0.00000       0.00000       0.00059    4901.00000    4900.99941 1289412.54930       2.25806       7.21309       0.06964
+    CI.mean.0.95           var       std.dev      coef.var
+         0.13648     866.82388      29.44187       4.08173
+
+
+\\ HR Assignments    
+
+> stat.desc(hr_charge$total_charge)
+     nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+    260409.0          0.0          0.0          1.0     178942.2     178941.2  183492274.6         85.3        704.6          5.5         10.8
+         var      std.dev     coef.var
+   7952620.5       2820.0          4.0
+
+   **daily_rate**
+
+   > stat.desc(hr_charge$daily_rate)
+         nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+    260409.00000       0.00000       0.00000       0.00068   95906.43000   95906.42932 1942823.38950       2.27897       7.46066       0.37874
+    CI.mean.0.95           var       std.dev      coef.var
+         0.74231   37353.36160     193.27018      25.90523
+
+  **hourly_rate**
+
+  > stat.desc(hr_charge$hourly_rate)
+       nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+   255902.0000       0.0000    4507.0000       0.0099   31744.9412   31744.9313 1732523.5025       4.4400       6.7703       0.1424       0.2792
+           var      std.dev     coef.var
+     5191.7661      72.0539      10.6427
 
 
 ## Education - all
@@ -192,19 +292,11 @@ db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_fir
 
 \\ length
 
-  > summary(experience$experience_length) // incorrect does not take into account 0 records
-     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's
-     0.08    3.66    6.08    7.38    9.42   65.79   55593
-
-     > summary(experience$experience_length)
-        Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-       0.000   0.000   3.748   4.943   7.586  65.790
-
-       > stat.desc(experience_years)
-            nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
-         168363.000    55593.000        0.000        0.000       65.789       65.789   832288.384        3.748        4.943        0.014        0.027
-                var      std.dev     coef.var
-             31.423        5.606        1.134
+> stat.desc(experience_count_all$experience_length)
+     nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+168363.00000  55593.00000      0.00000      0.00000     65.78904     65.78904 832288.38357      3.74795      4.94342      0.01366      0.02678
+         var      std.dev     coef.var
+    31.42331      5.60565      1.13396
 
 
 \\ count
@@ -216,11 +308,11 @@ db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_fir
    [1] 279549
 
              > experience_years_all <- read.csv("id_experience_all.csv", header = TRUE, sep = ",")
-             > stat.desc(experience_years_all$experiences_count)
-                  nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
-              168363.0000   55593.0000       0.0000       0.0000      94.0000      94.0000  279549.0000       1.0000       1.6604       0.0049       0.0096
-                      var      std.dev     coef.var
-                   4.0107       2.0027       1.2061
+             > stat.desc(experience_count_all$experiences_count)
+                   nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+             168363.000000  55593.000000      0.000000      0.000000     94.000000     94.000000 279549.000000      1.000000      1.660395      0.004881
+              CI.mean.0.95           var       std.dev      coef.var
+                  0.009566      4.010664      2.002664      1.206138
 
 
 ### experience worked
@@ -270,18 +362,19 @@ db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_fir
         0.000   0.000   2.499   4.029   6.334  65.790
 
         > experience_count_not_worked <- read.csv("id_experience_not_worked.csv", header = TRUE, sep = ",")
-        > stat.desc(experience_count_not_worked$experiences_count)
-             nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
-         125183.0000   51037.0000       0.0000       0.0000      51.0000      51.0000  165633.0000       1.0000       1.3231       0.0048       0.0094
-                 var      std.dev     coef.var
-              2.8744       1.6954       1.2814
+        > stat.desc(experience_count_not_worked$experience_length)
+       nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+  116574.00000  42429.00000      0.00000      0.00000     62.78630     62.78630 504252.71233      2.91233      4.32560      0.01566      0.03069
+           var      std.dev     coef.var
+      28.58114      5.34613      1.23593
+
         > stat.desc(experience_count_not_worked$experiences_length)
         Error in `[.data.frame`(x, i) : undefined columns selected
-        > stat.desc(experience_count_not_worked$experience_length)
-             nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
-          125183.000    51037.000        0.000        0.000       65.789       65.789   504318.501        2.499        4.029        0.015        0.029
-                 var      std.dev     coef.var
-              27.844        5.277        1.310
+        > stat.desc(experience_count_not_worked$experiences_count)
+        nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+  116574.000000  42429.000000      0.000000      0.000000     51.000000     51.000000 165632.000000      1.000000      1.420831      0.005029
+   CI.mean.0.95           var       std.dev      coef.var
+       0.009856      2.947825      1.716923      1.208393
 
 
 ## Tests
@@ -343,12 +436,35 @@ profileId     billed_assignments
 vars      n mean sd median trimmed mad min  max range skew kurtosis   se
 1    1 168363  2.9 14      0    0.36   0   0 1031  1031   17      594 0.03
 
+> summary(profiles$billed_assignments)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+    0.0     0.0     0.0     2.9     1.0  1030.0
+
+      > stat.desc(profiles$billed_assignments)
+           nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+      168363.00000 125265.00000      0.00000      0.00000   1031.00000   1031.00000 488175.00000      0.00000      2.89954      0.03483      0.06826
+               var      std.dev     coef.var
+         204.19665     14.28974      4.92828
+
+
+         	One Sample t-test
+
+         data:  profiles$billed_assignments
+         t = 83, df = 170000, p-value <0.0000000000000002
+         alternative hypothesis: true mean is greater than 0
+         95 percent confidence interval:
+          2.842   Inf
+         sample estimates:
+         mean of x
+               2.9
+
 \\ Profiles with details
 > stat.desc(billed_assignments_file$billed_assignments)
      nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
     43098.00         0.00         0.00         1.00      1031.00      1030.00    488175.00         3.00        11.33         0.13         0.25
          var      std.dev     coef.var
       702.25        26.50         2.34
+
 
 db.profiles_phl_working.find({ "billed_assignments": { $gt: 0.0, $lte: 37.8 } }).count() **39994**
 
@@ -470,6 +586,19 @@ mean of x
        mean of x
               88
 
+              > t.test(days_closed, alternative = c("greater"), mu = 90, paired = FALSE)
+
+              	One Sample t-test
+
+              data:  days_closed
+              t = -5, df = 300000, p-value = 1
+              alternative hypothesis: true mean is greater than 90
+              95 percent confidence interval:
+                88 Inf
+              sample estimates:
+              mean of x
+                     88
+
 _Hourly_
 
 > t.test(days_closed_hr, alternative = c("greater"), mu = 30, paired = FALSE)
@@ -496,6 +625,32 @@ mean of x
       sample estimates:
       mean of x
             107
+
+            > t.test(days_closed_hr, alternative = c("greater"), mu = 90, paired = FALSE)
+
+            	One Sample t-test
+
+            data:  days_closed_hr
+            t = 40, df = 200000, p-value <0.0000000000000002
+            alternative hypothesis: true mean is greater than 90
+            95 percent confidence interval:
+             106 Inf
+            sample estimates:
+            mean of x
+                  107
+
+                  > t.test(days_closed_hr, alternative = c("greater"), mu = 180, paired = FALSE)
+
+                    	One Sample t-test
+
+                    data:  days_closed_hr
+                    t = -200, df = 200000, p-value = 1
+                    alternative hypothesis: true mean is greater than 180
+                    95 percent confidence interval:
+                     106 Inf
+                    sample estimates:
+                    mean of x
+                          107
 
 
 _Fixed_
@@ -525,6 +680,18 @@ mean of x
        mean of x
               66
 
+              > t.test(days_closed_fp, alternative = c("greater"), mu = 90, paired = FALSE)
+
+              	One Sample t-test
+
+              data:  days_closed_fp
+              t = -60, df = 100000, p-value = 1
+              alternative hypothesis: true mean is greater than 90
+              95 percent confidence interval:
+                66 Inf
+              sample estimates:
+              mean of x
+                     66
 
 
 
@@ -577,6 +744,18 @@ mean of x
       sample estimates:
       mean of x
             126
+
+
+            One Sample t-test
+
+data:  hours_closed_rev
+t = -30, df = 200000, p-value = 1
+alternative hypothesis: true mean is greater than 160
+95 percent confidence interval:
+124 Inf
+sample estimates:
+mean of x
+    126
 
 
 ## Intensity
@@ -632,14 +811,95 @@ mean of x
    * Profiles without job categories WITH billed assignmennts = 913
      * Query ran: ```db.profiles.find({ "details.dev_country": "Philippines", "details.dev_job_categories_v2.dev_job_categories_v": {$exists: false}, "details.dev_billed_assignments": { $gt: "0" }}).count()```
 
+\\ All
+     > stat.desc(profiles$categories_group_count)
+           nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+     168363.000000   9633.000000      0.000000      0.000000     10.000000     10.000000 428308.000000      2.000000      2.543956      0.003838
+      CI.mean.0.95           var       std.dev      coef.var
+          0.007523      2.480105      1.574835      0.619050
+
+
+          > stat.desc(profiles$categories_subgroup_count)
+                nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+          168363.000000   9633.000000      0.000000      0.000000     38.000000     38.000000 904258.000000      5.000000      5.370883      0.007992
+           CI.mean.0.95           var       std.dev      coef.var
+               0.015663     10.752438      3.279091      0.610531
+
+\\ Worked
+               > stat.desc(categories_worked$categories_group_count)
+                     nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+                43180.000000    916.000000      0.000000      0.000000     10.000000     10.000000 131701.000000      3.000000      3.050046      0.006905
+                CI.mean.0.95           var       std.dev      coef.var
+                    0.013533      2.058613      1.434787      0.470415
+               > stat.desc(categories_worked$categories_subgroup_count)
+                    nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+                43180.00000    916.00000      0.00000      0.00000     38.00000     38.00000 301912.00000      8.00000      6.99194      0.01372      0.02689
+                        var      std.dev     coef.var
+                    8.12713      2.85081      0.40773
+
+\\ Not Worked
+               > categories_not_worked <- read.csv("id_cat_sub_not_worked.csv", header = TRUE, sep = ",")
+               > stat.desc(categories_not_worked$categories_group_count)
+                     nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+               125183.000000   8717.000000      0.000000      0.000000     10.000000     10.000000 296607.000000      2.000000      2.369387      0.004475
+                CI.mean.0.95           var       std.dev      coef.var
+                    0.008771      2.506688      1.583252      0.668212
+               > stat.desc(categories_not_worked$categories_subgroup_count)
+                     nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
+               125183.000000   8717.000000      0.000000      0.000000     24.000000     24.000000 602346.000000      4.000000      4.811724      0.009132
+                CI.mean.0.95           var       std.dev      coef.var
+                    0.017898     10.438973      3.230940      0.671472
+
 
 ## Job titles
 
  * ` db.jobs_phl_all.count() ` ***452142***
 
+\\ Work History term frequency
+
  > head(frequency)
 representative       customer        service      assistant        support        manager
          32957          29980          28918          20749          17283          15779
+
+\\ Job title term frequency
+
+         > job_titles <- jobs$job_title
+         > review_job_titles <- paste(job_titles, collapse)
+         Error in paste(job_titles, collapse) :
+           cannot coerce type 'closure' to vector of type 'character'
+         > review_job_titles <- paste(jobs$job_title, collapse = "")
+         > library("tm", lib.loc="/Library/Frameworks/R.framework/Versions/3.2/Resources/library")
+         Loading required package: NLP
+
+         Attaching package: ‘NLP’
+
+         The following object is masked from ‘package:ggplot2’:
+
+             annotate
+
+         > review_source <- VectorSource(review_job_titles)
+         > all_job_titles <- tm_map(all_job_titles, content_transformer(tolower))
+         Error in tm_map(all_job_titles, content_transformer(tolower)) :
+           object 'all_job_titles' not found
+         > all_job_titles <- Corpus(review_source)
+         > all_job_titles <- tm_map(all_job_titles, content_transformer(tolower))
+         > all_job_titles <- tm_map(all_job_titles, removePunctuation)
+         > all_job_titles <- tm_map(all_job_titles, stripWhitespace)
+         > all_job_titles <- tm_map(all_job_titles, removeWords, stopwords (kind = "en")  )
+         > job_titles_dtm <- DocumentTermMatrix(all_job_titles)
+         > job_titles_dtm2 <- as.matrix(job_titles_dtm)
+         > job_titles_frequency <- colSums(dtm2)
+         Error in is.data.frame(x) : object 'dtm2' not found
+         > job_titles_frequency <- colSums(job_titles_dtm2)
+         > job_titles_frequency <- sort(job_titles_frequency, decreasing = TRUE)
+         > head(job_titles_frequency)
+              data     entry  research assistant    needed       web
+             21838     20323     13236     12284     11182      9515
+
+\\ Experience Titles
+
+worked db.experience_titles_worked.count() **113916**
+db.experience_titles_all.count() **279549**
 
 
 ## Skills
@@ -662,6 +922,9 @@ representative       customer        service      assistant        support      
          > summary(skills_count_not_worked)
             Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
                0       0       2       3       5      54
+
+
+
 
 
 \\ Test for difference
@@ -697,6 +960,28 @@ mean of x mean of y
 
            data:  skills_count$skills_count by skills_count$worked_on_platform
            Kruskal-Wallis chi-squared = 20000, df = 1, p-value <0.0000000000000002
+
+
+           > skills.aov <- aov(profiles$skills ~ profiles$worked_on_platform)
+           > anova(skills.aov)
+           Analysis of Variance Table
+
+           Response: profiles$skills
+                                           Df  Sum Sq Mean Sq F value              Pr(>F)    
+           profiles$worked_on_platform      1  266457  266457   17545 <0.0000000000000002 ***
+           Residuals                   168361 2556967      15                                
+           ---
+           Signif. codes:  0 ‘* * * three stars’ 0.001 ‘ * two stars *  ’ 0.01 ‘* one star ’ 0.05 ‘.’ 0.1 ‘ ’ 1
+           > TukeyHSD(skills.aov)
+             Tukey multiple comparisons of means
+               95% family-wise confidence level
+
+           Fit: aov(formula = profiles$skills ~ profiles$worked_on_platform)
+
+           $`profiles$worked_on_platform`
+                       diff   lwr   upr p adj
+           true-false 2.881 2.838 2.923     0
+
 
 \\ Simple Regression
 
@@ -739,6 +1024,19 @@ Coefficients:
                   Multiple R-squared:  0.246,	Adjusted R-squared:  0.246
                   F-statistic: 7.87e+03 on 7 and 168355 DF,  p-value: <0.0000000000000002                
 
+
+
+### JOb title word search
+
+db.jobs_phl_all.find({ $text: { $search: "\"data entry\"" } } ).count() **33009**
+
+db.jobs_phl_all.find({ $text: { $search: "\"virtual assistant\"" } } ).count() **13098** + **5542**  (va)
+
+db.jobs_phl_all.find({ $text: { $search: "\"personal assistant\"" } } ).count() **4392** + **546** (pa)
+
+db.jobs_phl_all.find({ $text: { $search: "write writer" } } ).count() **36939**
+
+db.jobs_phl_all.find({ $text: { $search: "admin adminstration adminstrator" } } ).count() **5851**
 
 -------------------------------
 
