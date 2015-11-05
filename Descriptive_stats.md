@@ -135,6 +135,13 @@ db.profiles_phl_working.find({  "details.assignments.fp.job.as_to_full": ISODate
 
 db.profiles_phl_working.find({ $or:[ {"details.assignments.fp.job.as_to_full": ISODate("2015-09-30T14:00:00.000+0000"), "details.assignments.hr.job.as_to_full": ISODate("2015-09-30T14:00:00.000+0000")}] } ).count()
 
+### Profiles with full details and open assignments **14008**
+
+db.profiles_phl_working.find({ "worked_on_platform": true, "assignments_listed_billed_delta": 0.0, "date_last_worked": ISODate("2015-09-30T14:00:00.000+0000") }).count()
+
+### Profiles without full details and open assignments **6498**
+db.profiles_phl_working.find({ "worked_on_platform": true, "assignments_listed_billed_delta": { $ne: 0.0 }, "date_last_worked": ISODate("2015-09-30T14:00:00.000+0000") }).count()
+
 ### Profiles with Billed Assignemnts delta = 0, Worked
 
 db.profiles_phl_working.find({ "worked_on_platform": true, "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "details.assignments.hr.job.as_financial_privacy": { $ne: "1" }, "details.assignments.fp.job.as_financial_privacy": { $ne: "1" } }).count()
@@ -165,10 +172,183 @@ db.profiles_phl_working.find({ "assignments_listed_billed_delta": 0.0, "date_fir
 
 ## Income
 
+\\ Assignments with full working history
+
+db.profiles_phl_working.find({ "worked_on_platform": true, "assignments_listed_billed_delta": 0.0, "date_first_worked": { $type: 9 }, "details.assignments.hr.job.as_financial_privacy": { $ne: "1" }, "details.assignments.fp.job.as_financial_privacy": { $ne: "1" } }).count() **30425**
+
+
+> cor(profiles_income, use = "everything")
+                     billed_assignments assignments_fp_count assignments_hr_count total_hours length_active income_fp income_hr income_total
+billed_assignments               1.0000              0.88893               0.7735     0.31745       0.41561   0.51199    0.3430       0.4286
+assignments_fp_count             0.8889              1.00000               0.3973     0.07179       0.26946   0.54105    0.1154       0.2189
+assignments_hr_count             0.7735              0.39726               1.0000     0.53669       0.45983   0.27711    0.5274       0.5558
+total_hours                      0.3174              0.07179               0.5367     1.00000       0.37627   0.08612    0.8136       0.7882
+length_active                    0.4156              0.26946               0.4598     0.37627       1.00000   0.21822    0.3314       0.3582
+income_fp                        0.5120              0.54105               0.2771     0.08612       0.21822   1.00000    0.1603       0.3543
+income_hr                        0.3430              0.11542               0.5274     0.81359       0.33144   0.16035    1.0000       0.9798
+income_total                     0.4286              0.21886               0.5558     0.78822       0.35817   0.35432    0.9798       1.0000
+daily_rate                       0.1016              0.04074               0.1471     0.28792      -0.02058   0.12789    0.3708       0.3771
+annual_every_day                 0.1016              0.04074               0.1471     0.28792      -0.02058   0.12789    0.3708       0.3771
+annual_261                       0.1016              0.04074               0.1471     0.28792      -0.02058   0.12789    0.3708       0.3771
+annual_activity                  0.4156              0.26946               0.4598     0.37627       1.00000   0.21822    0.3314       0.3582
+                     daily_rate annual_every_day annual_261 annual_activity
+billed_assignments      0.10156          0.10156    0.10156         0.41561
+assignments_fp_count    0.04074          0.04074    0.04074         0.26946
+assignments_hr_count    0.14710          0.14710    0.14710         0.45983
+total_hours             0.28792          0.28792    0.28792         0.37627
+length_active          -0.02058         -0.02058   -0.02058         1.00000
+income_fp               0.12789          0.12789    0.12789         0.21822
+income_hr               0.37076          0.37076    0.37076         0.33144
+income_total            0.37713          0.37713    0.37713         0.35817
+daily_rate              1.00000          1.00000    1.00000        -0.02058
+annual_every_day        1.00000          1.00000    1.00000        -0.02058
+annual_261              1.00000          1.00000    1.00000        -0.02058
+annual_activity        -0.02058         -0.02058   -0.02058         1.00000
+>
+billed_assignments assignments_fp_count assignments_hr_count  total_hours length_active   income_fp    income_hr income_total
+nbr.val             30425.00000          30425.00000          30425.00000    30425.000     30425.000   30425.000    30425.000    30425.000
+nbr.null                0.00000          12631.00000           7769.00000     8201.000         0.000   12633.000     7772.000        5.000
+nbr.na                  0.00000              0.00000              0.00000        0.000         0.000       0.000        0.000        0.000
+min                     1.00000              0.00000              0.00000        0.000         1.000       0.000        0.000        0.000
+max                   442.00000            409.00000            226.00000    27556.833      3125.000   61506.000   211355.410   216774.820
+range                 441.00000            409.00000            226.00000    27556.833      3124.000   61506.000   211355.410   216774.820
+sum                184149.00000          86944.00000          97205.00000 12662646.167  15620640.000 8267428.500 54410903.253 62678331.753
+median                  2.00000              1.00000              1.00000       25.167       240.000       5.000       81.550      175.010
+mean                    6.05256              2.85765              3.19491      416.192       513.415     271.731     1788.362     2060.093
+SE.mean                 0.07863              0.05431              0.03924        6.906         3.476       7.969       37.297       39.369
+CI.mean.0.95            0.15412              0.10644              0.07692       13.537         6.813      15.619       73.104       77.165
+var                   188.10863             89.72990             46.85939  1451167.522    367575.998 1931988.356 42324013.356 47155920.616
+std.dev                13.71527              9.47259              6.84539     1204.644       606.280    1389.960     6505.691     6867.017
+coef.var                2.26603              3.31482              2.14260        2.894         1.181       5.115        3.638        3.333
+  daily_rate annual_every_day   annual_261 annual_activity
+nbr.val       30425.00000        30425.000    30425.000    30425.000000
+nbr.null          5.00000            5.000        5.000        0.000000
+nbr.na            0.00000            0.000        0.000        0.000000
+min               0.00000            0.000        0.000        0.002740
+max            1000.00000       365000.000   261000.000        8.561644
+range          1000.00000       365000.000   261000.000        8.558904
+sum          131246.77918     47905074.402 34255409.367    42796.273972
+median            1.26595          462.071      330.412        0.657534
+mean              4.31378         1574.530     1125.897        1.406615
+SE.mean           0.07107           25.941       18.549        0.009523
+CI.mean.0.95      0.13930           50.845       36.358        0.018665
+var             153.67800     20473751.820 10468699.176        2.759062
+std.dev          12.39669         4524.793     3235.537        1.661042
+coef.var          2.87374            2.874        2.874        1.180879
+
+
+
+> stat.desc(profiles_income$income_total)
+     nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+   30425.000        5.000        0.000        0.000   216774.820   216774.820 62678331.753      175.010     2060.093       39.369       77.165
+         var      std.dev     coef.var
+47155920.616     6867.017        3.333
+
+
+> stat.desc(profiles_income$daily_rate)
+     nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+ 30425.00000      5.00000      0.00000      0.00000   1000.00000   1000.00000 131246.77918      1.26595      4.31378      0.07107      0.13930
+         var      std.dev     coef.var
+   153.67800     12.39669      2.87374
+
+
+> stat.desc(profiles_income$annual_activity)
+     nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+30425.000000     0.000000     0.000000     0.002740     8.561644     8.558904 42796.273972     0.657534     1.406615     0.009523     0.018665
+         var      std.dev     coef.var
+    2.759062     1.661042     1.180879
+
+
+    > stat.desc(profiles_income$length_active)
+         nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+       30425.000        0.000        0.000        1.000     3125.000     3124.000 15620640.000      240.000      513.415        3.476        6.813
+             var      std.dev     coef.var
+      367575.998      606.280        1.181
+    > t.test(profiles_income$length_active, alternative = c("greater"), mu = 365, paired = FALSE)
+
+    	One Sample t-test
+
+    data:  profiles_income$length_active
+    t = 43, df = 30000, p-value <0.0000000000000002
+    alternative hypothesis: true mean is greater than 365
+    95 percent confidence interval:
+     507.7   Inf
+    sample estimates:
+    mean of x
+        513.4
+
+        > t.test(profiles_income$length_active, alternative = c("greater"), mu = 547.5, paired = FALSE)
+
+        	One Sample t-test
+
+        data:  profiles_income$length_active
+        t = -9.8, df = 30000, p-value = 1
+        alternative hypothesis: true mean is greater than 547.5
+        95 percent confidence interval:
+         507.7   Inf
+        sample estimates:
+        mean of x
+            513.4
+
+        > t.test(profiles_income$length_active, alternative = c("greater"), mu = 456.25, paired = FALSE)
+
+        	One Sample t-test
+
+        data:  profiles_income$length_active
+        t = 16, df = 30000, p-value <0.0000000000000002
+        alternative hypothesis: true mean is greater than 456.2
+        95 percent confidence interval:
+         507.7   Inf
+        sample estimates:
+        mean of x
+            513.4
+
+
+\\Daily Rates
+
+> stat.desc(profiles_income$daily_rate)
+     nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+ 30425.00000      5.00000      0.00000      0.00000   1000.00000   1000.00000 131246.77918      1.26595      4.31378      0.07107      0.13930
+         var      std.dev     coef.var
+   153.67800     12.39669      2.87374
+
+> t.test(profiles_income$daily_rate, alternative = c("greater"), mu = 9.39, paired = FALSE)
+
+	One Sample t-test
+
+data:  profiles_income$daily_rate
+t = -71, df = 30000, p-value = 1
+alternative hypothesis: true mean is greater than 9.39
+95 percent confidence interval:
+ 4.197   Inf
+sample estimates:
+mean of x
+    4.314
+
+> t.test(profiles_income$daily_rate, alternative = c("greater"), mu = 6.41, paired = FALSE)
+
+	One Sample t-test
+
+data:  profiles_income$daily_rate
+t = -29, df = 30000, p-value = 1
+alternative hypothesis: true mean is greater than 6.41
+95 percent confidence interval:
+ 4.197   Inf
+sample estimates:
+mean of x
+    4.314
+
+
+\\ All Profile Income
+
+> stat.desc(profiles_income$income_total)
+     nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
+   30425.000        5.000        0.000        0.000   216774.820   216774.820 62678331.753      175.010     2060.093       39.369       77.165
+         var      std.dev     coef.var
+47155920.616     6867.017        3.333 
 
 
 \\ All Assignments
-
 
 > stat.desc(all_charge$total_charge)
      nbr.val     nbr.null       nbr.na          min          max        range          sum       median         mean      SE.mean CI.mean.0.95
@@ -207,6 +387,8 @@ db.jobs_phl_all.find({ "total_charge": { $gt: 0.0 }, "type": "Fixed", "cal_start
    178760.0          0.0          0.0          1.0      33937.9      33936.9   19045888.8         30.0        106.5          1.1          2.2
         var      std.dev     coef.var
    220275.1        469.3          4.4
+
+   **daily_rate**
 
    > stat.desc(fp_charge$daily_rate)
          nbr.val      nbr.null        nbr.na           min           max         range           sum        median          mean       SE.mean
